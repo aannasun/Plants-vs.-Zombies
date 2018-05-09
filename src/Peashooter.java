@@ -1,0 +1,35 @@
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+
+public class Peashooter {
+
+	private static int damage = 20;
+	private static int X_LEN  = 0;// = 80;
+	private static int Y_WIDTH = 0;//100;
+	private int xCol, yRow;
+	private BufferedImage img;
+	{
+		try 
+		{
+			img = ImageIO.read(new File("peashooter.png"));
+		}
+
+		catch(IOException e) {
+
+		}
+	}
+
+	public Peashooter(int x, int y) {
+		xCol = x;
+		yRow = y;
+	}
+
+	public void draw(Graphics g) {
+		g.drawImage(img, xCol+X_LEN, yRow+Y_WIDTH, null);
+	}
+}
