@@ -9,8 +9,8 @@ import javax.imageio.ImageIO;
 public class Peashooter {
 
 	private static int damage = 20;
-	private static int X_LEN  = 0;// = 80;
-	private static int Y_WIDTH = 0;//100;
+//	private static int X_LEN  = 80;
+//	private static int Y_WIDTH = 100;
 	private int xCol, yRow;
 	private BufferedImage img;
 	{
@@ -30,6 +30,6 @@ public class Peashooter {
 	}
 
 	public void draw(Graphics g) {
-		g.drawImage(img, xCol+X_LEN, yRow+Y_WIDTH, null);
+		g.drawImage(img, xCol, yRow, null);
 	}
 }
