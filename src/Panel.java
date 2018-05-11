@@ -6,7 +6,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -17,8 +21,8 @@ import javax.swing.UIManager;
 
 public class Panel extends JPanel {
 
-	static int LEN = 724;
-	static int WIDTH = 499;
+	static int LEN = 720+100;//724;
+	static int WIDTH = 500;//499;
 	private Lawn lawn = new Lawn();
 	
 	Timer timer = new Timer(125,null);
@@ -70,9 +74,16 @@ public class Panel extends JPanel {
 				// write your clicking code here!!
 				System.out.println("You just clicked: "+arg0);
 				
-				
-				repaint();
-				
+				if(arg0.getX() <= 720) {
+					lawn.justClicked(arg0.getX(), arg0.getY());
+					lawn.addStuff();	
+				}
+				else {
+					if(arg0.getY() < 60) {
+						lawn.peashooterCard();
+					}
+				}
+				repaint(); 
 			}
 
 			@Override
@@ -94,8 +105,6 @@ public class Panel extends JPanel {
 		});
 		timer.start();
 //		lawn.add("peashooter", 0, 0);
-		lawn.addStuff();
-		repaint();
 	}
 	protected void tick() {
 //		System.out.println("Timer went off!");
