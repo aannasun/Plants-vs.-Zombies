@@ -6,7 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 
-public class Peashooter extends Plant{
+public class Peashooter extends Plants{
 
 	private static int damage = 20;
 //	private static int X_LEN  = 80;
