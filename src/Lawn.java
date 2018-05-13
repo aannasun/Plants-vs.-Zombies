@@ -13,16 +13,17 @@ public class Lawn {
 
 	private int x;
 	private int y;
-	private ArrayList<Peashooter> plants= new ArrayList<Peashooter>();
+	private ArrayList<Plants> plants= new ArrayList<Plants>();
 	private final int sqSide = 80;
 	private String s;
 	//	private Block[][] grid = new Block[5][9];
-	private BufferedImage frontyard, peashooter_card;
+	private BufferedImage frontyard, peashooter_card, sunflower_card;
 
 	{
 		try {
 			frontyard = ImageIO.read(new File("frontyard.png"));
 			peashooter_card = ImageIO.read(new File("peashooter_card.png"));
+			sunflower_card = ImageIO.read(new File("sunflower_card.png"));
 		}	
 		catch(IOException e) {
 
@@ -33,16 +34,19 @@ public class Lawn {
 	public void draw(Graphics g) {
 		g.drawImage(frontyard, 0, 0, null);
 		g.drawImage(peashooter_card, 720, 0, null);
-		for(Peashooter p: plants) {
+		g.drawImage(sunflower_card, 720, 60, null);
+		for(Plants p: plants) {
 			p.draw(g);
 		}
 	}
 
 	public void add(String s, int x, int y) {
-		if(s.equals("peashooter")) {
+		if(s.equals("peashooter"))
 			plants.add(new Peashooter(x, y));
-		}
-	} 
+		if(s.equals("sunflower"))
+			plants.add(new Sunflower(x, y));
+	}
+	
 	
 	public void addStuff() {
 //		String s = JOptionPane.showInputDialog("What plant do you want");
@@ -57,5 +61,9 @@ public class Lawn {
 	
 	public void peashooterCard() {
 		s = "peashooter";
+	}
+	
+	public void sunflowerCard() {
+		s = "sunflower";
 	}
 }
