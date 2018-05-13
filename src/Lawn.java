@@ -17,13 +17,14 @@ public class Lawn {
 	private final int sqSide = 80;
 	private String s;
 	//	private Block[][] grid = new Block[5][9];
-	private BufferedImage frontyard, peashooter_card, sunflower_card;
+	private BufferedImage frontyard, peashooter_card, sunflower_card, walnut_card;
 
 	{
 		try {
 			frontyard = ImageIO.read(new File("frontyard.png"));
 			peashooter_card = ImageIO.read(new File("peashooter_card.png"));
 			sunflower_card = ImageIO.read(new File("sunflower_card.png"));
+			walnut_card = ImageIO.read(new File("walnut_card.png"));
 		}	
 		catch(IOException e) {
 
@@ -35,6 +36,7 @@ public class Lawn {
 		g.drawImage(frontyard, 0, 0, null);
 		g.drawImage(peashooter_card, 720, 0, null);
 		g.drawImage(sunflower_card, 720, 60, null);
+		g.drawImage(walnut_card, 720, 120, null);
 		for(Plants p: plants) {
 			p.draw(g);
 		}
@@ -45,6 +47,8 @@ public class Lawn {
 			plants.add(new Peashooter(x, y));
 		if(s.equals("sunflower"))
 			plants.add(new Sunflower(x, y));
+		if(s.equals("walnut"))
+			plants.add(new Walnut(x, y));
 	}
 	
 	
@@ -65,5 +69,9 @@ public class Lawn {
 	
 	public void sunflowerCard() {
 		s = "sunflower";
+	}
+	
+	public void walnutCard() {
+		s = "walnut";
 	}
 }
