@@ -79,9 +79,10 @@ public class Panel extends JPanel {
 					lawn.addStuff();	
 				}
 				else {
-					if(arg0.getY() < 60) {
+					if(arg0.getY() < 60) 
 						lawn.peashooterCard();
-					}
+					if(arg0.getY()>60 && arg0.getY()<120)
+						lawn.sunflowerCard();
 				}
 				repaint(); 
 			}
