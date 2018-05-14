@@ -87,6 +87,8 @@ public class Panel extends JPanel {
 						lawn.walnutCard();
 					if(arg0.getY()>180 && arg0.getY()<240)
 						lawn.CabbageCard();
+					if(arg0.getY()>240 && arg0.getY()<300)
+						lawn.MineCard();
 				}
 				repaint(); 
 			}
@@ -121,3 +123,4 @@ public class Panel extends JPanel {
 		lawn.draw(g);
 	}
 }
+
