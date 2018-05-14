@@ -43,10 +43,10 @@ public class Lawn {
 	public void draw(Graphics g) {
 		g.drawImage(frontyard, 0, 0, null);
 		g.drawImage(sunflower_card, 720, 0, null);
-		g.drawImage(peashooter_card, 720, 63, null);
-		g.drawImage(walnut_card, 720, 126, null);
-		g.drawImage(cabbage_card, 720, 63*3, null);
-		g.drawImage(mine_card, 720, 63*4, null);
+		g.drawImage(peashooter_card, 720, 60, null);
+		g.drawImage(walnut_card, 720, 120, null);
+		g.drawImage(cabbage_card, 720, 180, null);
+		g.drawImage(mine_card, 720, 240, null);
 		for(Plants p: plants) {
 			p.draw(g);
 		}
