@@ -40,7 +40,7 @@ public class Lawn {
 		g.drawImage(sunflower_card, 720, 60, null);
 		g.drawImage(walnut_card, 720, 120, null);
 		g.drawImage(cabbage_card, 720, 180, null);
-		g.drawImage(mine_card, 720, 180, null);
+		g.drawImage(mine_card, 720, 240, null);
 		for(Plants p: plants) {
 			p.draw(g);
 		}
