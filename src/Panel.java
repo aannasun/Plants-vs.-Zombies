@@ -108,6 +108,8 @@ public class Panel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				lawn.addZombie();
 				lawn.moveZombies();
+				lawn.makeSunsFromSunflowers();
+//				lawn.checkZombies();
 				lawn.moveSuns();
 				repaint();
 			}
