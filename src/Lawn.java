@@ -16,11 +16,12 @@ public class Lawn {
 	private ArrayList<Plants> plants= new ArrayList<Plants>();
 	private ArrayList<Zombies> z = new ArrayList<Zombies>();
 	private ArrayList<Sun> suns = new ArrayList<Sun>();
-	private final int sqSide = 80;
+	private ArrayList<Sunflower> sunflowers = new ArrayList<Sunflower>();
+//	private final int SIDE = 80;
 	private String s;
 	private int numZ = 5;
 	private int points = 50;
-	//card height = 63;
+	//card height = 60;
 	//	private Block[][] grid = new Block[5][9];
 	private BufferedImage frontyard, sun, sunflower_card, peashooter_card, walnut_card, cabbage_card, mine_card;
 
@@ -37,7 +38,6 @@ public class Lawn {
 		catch(IOException e) {
 
 		}
-		//		System.out.println(img);
 	}
 
 	public void draw(Graphics g) {
@@ -56,13 +56,16 @@ public class Lawn {
 		for(Sun s: suns) {
 			s.draw(g);
 		}
+		for(Sunflower sunflower: sunflowers) {
+			sunflower.draw(g);
+		}
 		g.drawString("" + points, 750, 500-50);
 	}
 
 	public void add(String s, int x, int y) {
 		if(s.equals("sunflower")) {
 			if(points >= 50) {
-				plants.add(new Sunflower(x, y));
+				sunflowers.add(new Sunflower(x, y));
 				points -= 50;
 			}
 		}
@@ -85,9 +88,9 @@ public class Lawn {
 			}
 		}
 		else if(s.equals("mine")) {
-			if(points >= 50) {
+			if(points >= 25) {
 				plants.add(new Mine(x, y));
-				points -=50;
+				points -=25;
 			}
 		}
 	} 
@@ -109,19 +112,19 @@ public class Lawn {
 	}
 
 	public void card(int y) {
-		if(y >= 0 && y <= 63) {
+		if(y >= 0 && y <= 60) {
 			s = "sunflower";
 		}
-		else if(y > 63 && y <= 126) {
+		else if(y > 60 && y <= 120) {
 			s = "peashooter";
 		}
-		else if(y > 126 && y <= 63*3) {
+		else if(y > 120 && y <= 180) {
 			s = "walnut";
 		}
-		else if(y > 63*3 && y <= 63*4) {
+		else if(y > 180 && y <= 240) {
 			s = "cabbage";
 		}
-		else if(y > 63*4 && y <= 63*5) {
+		else if(y > 240 && y <= 300) {
 			s = "mine";
 		}
 	}
@@ -152,6 +155,17 @@ public class Lawn {
 		for(int i = suns.size()-1; i>-1; i--) {
 			if(suns.get(i).getY()>500) {
 				suns.remove(i);
+			}
+		}
+	}
+	
+	public void makeSunsFromSunflowers() {
+		for(Sunflower sunflower:sunflowers) {
+			sunflower.addTime();
+			if(sunflower.name().equals("sunflower")) {
+				if(sunflower.getTime() % 25 == 0) {
+					suns.add(sunflower.newSun());
+				}
 			}
 		}
 	}
