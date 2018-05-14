@@ -26,7 +26,7 @@ public class Cabbage extends Plants{
 	}
 
 	public void draw(Graphics g) {
-		if (health<0)
+		if (health>0)
 			g.drawImage(img, xCol, yRow, null);
 	}
 }
