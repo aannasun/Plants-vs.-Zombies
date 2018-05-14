@@ -28,6 +28,11 @@ public class Sun {
 		yRow = (int)(Math.random()*lawnHeight);
 	}
 	
+	public Sun(int x, int y) {
+		xCol = x;
+		yRow = y;
+	}
+	
 	public void draw(Graphics g) {
 		g.drawImage(img, xCol, yRow, null);
 	}
@@ -49,4 +54,3 @@ public class Sun {
 		return false;
 	}
 }
-
