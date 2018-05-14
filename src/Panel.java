@@ -26,6 +26,8 @@ public class Panel extends JPanel {
 	private Lawn lawn = new Lawn();
 	
 	Timer timer = new Timer(125,null);
+	Timer timer2 = new Timer(500, null);
+	Timer timer3 = new Timer(10000, null);
 	public static void main(String[] args) {
 		try {
 			// Set System L&F
@@ -79,16 +81,7 @@ public class Panel extends JPanel {
 					lawn.addStuff();	
 				}
 				else {
-					if(arg0.getY() < 60) 
-						lawn.peashooterCard();
-					if(arg0.getY()>60 && arg0.getY()<120)
-						lawn.sunflowerCard();
-					if(arg0.getY()>120 && arg0.getY()<180)
-						lawn.walnutCard();
-					if(arg0.getY()>180 && arg0.getY()<240)
-						lawn.CabbageCard();
-					if(arg0.getY()>240 && arg0.getY()<300)
-						lawn.MineCard();
+					lawn.card(arg0.getY());
 				}
 				repaint(); 
 			}
@@ -102,25 +95,43 @@ public class Panel extends JPanel {
 	}
 	
 	private void startGame() {
-		timer.addActionListener(new ActionListener() {	
-			
+		timer.addActionListener(new ActionListener() {		
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				tick();
+
 			}
 			
 		});
+		timer2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				lawn.addZombie();
+				lawn.moveZombies();
+				lawn.moveSuns();
+				repaint();
+			}
+		});
+		timer3.addActionListener(new ActionListener() {		
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				lawn.dropSun();
+				repaint();
+			}
+			
+		});
+		
 		timer.start();
+		timer2.start();
+		timer3.start();
 //		lawn.add("peashooter", 0, 0);
 	}
 	protected void tick() {
 //		System.out.println("Timer went off!");
 	}
-
 	
 	public void paintComponent(Graphics g) {
 //		super.paintComponent(g);
 		lawn.draw(g);
 	}
 }
-
