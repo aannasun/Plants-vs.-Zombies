@@ -5,8 +5,10 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Sunflower extends Plants{
+public class Sunflower{
 	
+	private int health = 30;
+	private int notTimer = 0;
 	private int xCol, yRow;
 	private BufferedImage img;
 	{
@@ -24,8 +26,25 @@ public class Sunflower extends Plants{
 		xCol = x;
 		yRow = y;
 	}
+	
 
 	public void draw(Graphics g) {
 		g.drawImage(img, xCol, yRow, null);
+	}
+	
+	public Sun newSun() {
+		return new Sun(xCol + 50, yRow);
+	}
+	
+	public void addTime() {
+		notTimer++;
+	}
+	
+	public int getTime() {
+		return notTimer;
+	}
+	
+	public String name() {
+		return "sunflower";
 	}
 }
