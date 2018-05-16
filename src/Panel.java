@@ -28,7 +28,7 @@ public class Panel extends JPanel {
 	Timer timer = new Timer(125,null);
 	Timer timer2 = new Timer(500, null);
 	Timer timer3 = new Timer(10000, null);
-	Timer peaTimer = new Timer(100, null);
+	Timer peaTimer = new Timer(10, null);
 	Timer movingPea = new Timer(1, null);
 	public static void main(String[] args) {
 		try {
@@ -143,7 +143,7 @@ public class Panel extends JPanel {
 //		System.out.println("Timer went off!")
 		lawn.shoot();
 		repaint();
-		timer2.stop();
+		peaTimer.stop();
 	}
 	
 	protected void tick2() {
