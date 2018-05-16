@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 
 public class Walnut extends Plants{
 	
+	private int health = 100;
 	private int xCol, yRow;
 	private BufferedImage img;
 	{
