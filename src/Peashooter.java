@@ -28,7 +28,7 @@ public class Peashooter extends Plants{
 	public Peashooter(int x, int y) {
 		xCol = x;
 		yRow = y;
-		p = new Pea(xCol+100, yRow-30);
+		p = new Pea(xCol+80, yRow+20);
 	}
 
 	public void draw(Graphics g) {
