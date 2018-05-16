@@ -106,7 +106,7 @@ public class Lawn {
 		for(int i = suns.size()-1; i>-1; i--) {
 			if(suns.get(i).checkIfClicked(x, y)) {
 				suns.remove(i);
-				points +=25;
+				points += 50;
 			}
 		}
 	}
