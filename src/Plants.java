@@ -2,7 +2,7 @@ import java.awt.Graphics;
 
 abstract class Plants {
 	
-	private int health = 30;
+	int health = 30;
 
 	public void draw(Graphics g) {
 				
