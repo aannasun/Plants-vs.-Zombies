@@ -28,7 +28,7 @@ public class Peashooter extends Plants{
 	public Peashooter(int x, int y) {
 		xCol = x;
 		yRow = y;
-		p = new Pea(xCol+80, yRow+20);
+		p = new Pea(xCol+100, yRow-30, 0);
 	}
 
 	public void draw(Graphics g) {
@@ -44,15 +44,15 @@ public class Peashooter extends Plants{
 	public String name() {
 		return "peashooter";
 	}
-	
+
 	public void newPea() {
-		p = new Pea(xCol+80, yRow+20);
+		p = new Pea(xCol+80, yRow+20, 0);
 	}
-	
-	
+
+
 	public void shoot() {
-		
+
 		p.changeX();
-		
+
 	}
 }
