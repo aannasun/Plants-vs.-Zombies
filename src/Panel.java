@@ -28,6 +28,8 @@ public class Panel extends JPanel {
 	Timer timer = new Timer(125,null);
 	Timer timer2 = new Timer(500, null);
 	Timer timer3 = new Timer(10000, null);
+	Timer peaTimer = new Timer(1000, null);
+	Timer movingPea = new Timer(10, null);
 	public static void main(String[] args) {
 		try {
 			// Set System L&F
@@ -103,6 +105,14 @@ public class Panel extends JPanel {
 			}
 			
 		});
+		peaTimer.addActionListener(new ActionListener() {		
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				tick2();
+
+			}
+			
+		});
 		timer2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -126,11 +136,25 @@ public class Panel extends JPanel {
 		timer.start();
 		timer2.start();
 		timer3.start();
+		peaTimer.start();
 //		lawn.add("peashooter", 0, 0);
 	}
 	protected void tick() {
-//		System.out.println("Timer went off!");
+//		System.out.println("Timer went off!")
+		lawn.shoot();
+		repaint();
 	}
+	
+	protected void tick2() {
+		movingPea.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tick();
+			}
+		});
+		movingPea.start();
+	}
+	
+	
 	
 	public void paintComponent(Graphics g) {
 //		super.paintComponent(g);
