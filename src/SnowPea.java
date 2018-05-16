@@ -28,7 +28,7 @@ public class SnowPea extends Plants{
 	public SnowPea(int x, int y) {
 		xCol = x;
 		yRow = y;
-		p = new Pea(xCol+100, yRow-30);
+		p = new Pea(xCol+100, yRow-30, 1);
 	}
 
 	public void draw(Graphics g) {
@@ -46,7 +46,7 @@ public class SnowPea extends Plants{
 	}
 
 	public void newPea() {
-		p = new Pea(xCol+80, yRow+20);
+		p = new Pea(xCol+80, yRow+20, 1);
 	}
 
 
