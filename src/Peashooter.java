@@ -32,11 +32,13 @@ public class Peashooter extends Plants{
 	}
 
 	public void draw(Graphics g) {
-		g.drawImage(img, xCol, yRow, null);
-		if(p.newPea()) {
-			newPea();
+		if (health>0) {
+			g.drawImage(img, xCol, yRow, null);
+			if(p.newPea()) {
+				newPea();
+			}
+			p.draw(g);
 		}
-		p.draw(g);
 	}
 
 	public String name() {
