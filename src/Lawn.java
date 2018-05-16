@@ -23,7 +23,7 @@ public class Lawn {
 	private int points = 50;
 	//card height = 60;
 	//	private Block[][] grid = new Block[5][9];
-	private BufferedImage frontyard, sun, sunflower_card, peashooter_card, walnut_card, cabbage_card, mine_card;
+	private BufferedImage frontyard, sun, sunflower_card, peashooter_card, walnut_card, cabbage_card, mine_card, snowpea_card;
 
 	{
 		try {
@@ -34,6 +34,7 @@ public class Lawn {
 			walnut_card = ImageIO.read(new File("walnut_card.png"));
 			cabbage_card = ImageIO.read(new File("cabbage_card.png"));
 			mine_card = ImageIO.read(new File("mine_card.png"));
+			snowpea_card = ImageIO.read(new File("snowpea_card.png"));
 		}	
 		catch(IOException e) {
 
@@ -47,6 +48,7 @@ public class Lawn {
 		g.drawImage(walnut_card, 720, 120, null);
 		g.drawImage(cabbage_card, 720, 180, null);
 		g.drawImage(mine_card, 720, 240, null);
+		g.drawImage(snowpea_card, 720, 300, null);
 		for(Plants p: plants) {
 			p.draw(g);
 		}
@@ -93,6 +95,12 @@ public class Lawn {
 				points -=25;
 			}
 		}
+		else if(s.equals("snowpea")) {
+			if(points >= 175) {
+				plants.add(new SnowPea(x, y));
+				points -=175;
+			}
+		}
 	} 
 
 	public void addStuff() {
@@ -126,6 +134,9 @@ public class Lawn {
 		}
 		else if(y > 240 && y <= 300) {
 			s = "mine";
+		}
+		else if(y > 300 && y <= 360) {
+			s = "snowpea";
 		}
 	}
 
