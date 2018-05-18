@@ -49,10 +49,13 @@ public class SnowPea extends Plants{
 		p = new Pea(xCol+80, yRow+20, 1);
 	}
 
-
-	public void shoot() {
-
-		p.changeX();
-
+	public Pea getPea() {
+		return p;
 	}
+	
+//	public void shoot() {
+//
+//		p.changeX();
+//
+//	}
 }
