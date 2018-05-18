@@ -11,6 +11,8 @@ public class Pea{
 	private int color;
 	private boolean stop = false;
 	private boolean newPea;
+	//size = 28
+	
 	BufferedImage pea; 
 	{
 		try 
@@ -30,6 +32,9 @@ public class Pea{
 		}
 	}
 	
+	public Pea() {
+		
+	}
 	
 	public Pea(int x, int y, int c) {
 		this.x = x;
@@ -65,4 +70,17 @@ public class Pea{
 		}
 	}
 
+	public void ifHit(Zombies z) {
+		if(z.getX() == x) {
+		System.out.println("hi");
+			if(z.getRow() == (int)(y/80)) {
+				System.out.println("hit");	
+			}
+		}
+	}
+	
+	public int getRow() {
+		return (int)(y/80);
+	}
+	
 }
