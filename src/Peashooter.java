@@ -49,10 +49,13 @@ public class Peashooter extends Plants{
 		p = new Pea(xCol+80, yRow+20, 0);
 	}
 
-
-	public void shoot() {
-
-		p.changeX();
-
+	public Pea getPea() {
+		return p;
 	}
+	
+//	public void shoot() {
+//
+//		p.changeX();
+//
+//	}
 }
