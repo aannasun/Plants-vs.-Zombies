@@ -17,17 +17,19 @@ public class Lawn {
 	private ArrayList<Zombies> z = new ArrayList<Zombies>();
 	private ArrayList<Sun> suns = new ArrayList<Sun>();
 	private ArrayList<Sunflower> sunflowers = new ArrayList<Sunflower>();
-//	private final int SIDE = 80;
+	//	private final int SIDE = 80;
 	private String s;
 	private int numZ = 5;
-	private int points = 50;
+	private int points = 1000;
+	private boolean endGame = false;
 	//card height = 60;
 	//	private Block[][] grid = new Block[5][9];
-	private BufferedImage frontyard, sun, sunflower_card, peashooter_card, walnut_card, cabbage_card, mine_card, snowpea_card;
+	private BufferedImage frontyard, sun, sunflower_card, peashooter_card, walnut_card, cabbage_card, mine_card, snowpea_card, end;
 
 	{
 		try {
 			frontyard = ImageIO.read(new File("frontyard.png"));
+			end = ImageIO.read(new File("end.png"));
 			sun = ImageIO.read(new File("sun.png"));
 			sunflower_card = ImageIO.read(new File("sunflower_card.png"));
 			peashooter_card = ImageIO.read(new File("peashooter_card.png"));
@@ -42,24 +44,28 @@ public class Lawn {
 	}
 
 	public void draw(Graphics g) {
-		g.drawImage(frontyard, 0, 0, null);
-		g.drawImage(sunflower_card, 720, 0, null);
-		g.drawImage(peashooter_card, 720, 60, null);
-		g.drawImage(walnut_card, 720, 120, null);
-		g.drawImage(cabbage_card, 720, 180, null);
-		g.drawImage(mine_card, 720, 240, null);
-		g.drawImage(snowpea_card, 720, 300, null);
-		for(Plants p: plants) {
-			p.draw(g);
-		}
-		for(Zombies zombies: z) {
-			zombies.draw(g);
-		}
-		for(Sun s: suns) {
-			s.draw(g);
-		}
-		for(Sunflower sunflower: sunflowers) {
-			sunflower.draw(g);
+		if(endGame)
+			g.drawImage(end, 0, 0, 720, 500, null);
+		else {
+			g.drawImage(frontyard, 0, 0, null);
+			g.drawImage(sunflower_card, 720, 0, null);
+			g.drawImage(peashooter_card, 720, 60, null);			
+			g.drawImage(walnut_card, 720, 120, null);
+			g.drawImage(cabbage_card, 720, 180, null);
+			g.drawImage(mine_card, 720, 240, null);
+			g.drawImage(snowpea_card, 720, 300, null);
+			for(Plants p: plants) {
+				p.draw(g);
+			}
+			for(Zombies zombies: z) {
+				zombies.draw(g);
+			}
+			for(Sun s: suns) {
+				s.draw(g);
+			}
+			for(Sunflower sunflower: sunflowers) {
+				sunflower.draw(g);
+			}
 		}
 		g.drawString("" + points, 750, 500-50);
 	}
@@ -85,8 +91,8 @@ public class Lawn {
 		}
 		else if (s.equals("cabbage")) {
 			if(points >= 100) {
-			plants.add(new Cabbage(x, y));
-			points -=100;
+				plants.add(new Cabbage(x, y));
+				points -=100;
 			}
 		}
 		else if(s.equals("mine")) {
@@ -149,7 +155,10 @@ public class Lawn {
 
 	public void moveZombies() {
 		for(Zombies zombie: z) {
-			zombie.move();
+			if (zombie.getX() > 0)
+				zombie.move();
+			else 
+				endGame = true;
 		}
 	}
 
@@ -169,7 +178,7 @@ public class Lawn {
 			}
 		}
 	}
-	
+
 	public void makeSunsFromSunflowers() {
 		for(Sunflower sunflower:sunflowers) {
 			sunflower.addTime();
@@ -180,11 +189,25 @@ public class Lawn {
 			}
 		}
 	}
-	
+
+	public void checkIfHit() {
+		for(Zombies zombie: z) {
+			for(Plants p: plants) {
+				if(p.name().equals("peashooter") || p.name().equals("snowpea")) {
+					if (p.getPea().getRow() == zombie.getRow())
+						p.getPea().ifHit(zombie);
+				}
+			}
+		}
+	}
+
 	public void shoot() {
 		// TODO Auto-generated method stub
 		for(Plants p: plants) {
-			p.shoot();
+			//			p.shoot();
+			if(p.name().equals("peashooter") || p.name().equals("snowpea")) {
+				p.getPea().changeX();
+			}
 		}
 	}
 }
