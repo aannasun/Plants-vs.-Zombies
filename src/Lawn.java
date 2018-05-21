@@ -245,4 +245,16 @@ public class Lawn {
 				}
 		}
 	}
+	
+	public void plantsShoot() {
+		for (Plants p: plants)
+			if (p.name().equals("peashooter"))
+				p.setShootPosition();
+	}
+	
+	public void plantsMove() {
+		for (Plants p: plants)
+			if (p.name().equals("peashooter"))
+				p.setRestPosition();
+	}
 }
