@@ -18,9 +18,11 @@ public class Peashooter extends Plants{
 	{
 		try 
 		{
-			img = ImageIO.read(new File("peashooter.png"));
+			//img = ImageIO.read(new File("peashooter.png"));
 			left = ImageIO.read(new File("peashooter_left.png"));
 			right = ImageIO.read(new File("peashooter_right.png"));
+			img1 = ImageIO.read(new File("peashot1.png"));
+			img2 = ImageIO.read(new File("peashot2.png"));
 		}
 
 		catch(IOException e) {
@@ -37,12 +39,16 @@ public class Peashooter extends Plants{
 	}
 
 	public void draw(Graphics g) {
-		g.drawImage(img, xCol, yRow, null);
-
-		if(p.newPea()) {
-			newPea();
+		if (health>0) {
+			if (shoot==true)
+				g.drawImage(img1, xCol, yRow, null);
+			if (shoot==false)
+				g.drawImage(img2, xCol, yRow, null);
+			if(p.newPea()) {
+				newPea();
+			}
+			p.draw(g);
 		}
-		p.draw(g);
 	}
 
 	public void move() {
