@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 public class Pea extends Projectile{
 	private int x;
 	private int y;
+	private int color;
 	private boolean stop = false;
 	private boolean newPea;
 	private boolean hit;
