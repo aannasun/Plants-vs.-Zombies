@@ -147,6 +147,14 @@ public class Panel extends JPanel {
 			}
 			
 		});
+		peashooterTime.addActionListener(new ActionListener() {		
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				lawn.plantsShoot();
+				repaint();
+			}
+			
+		});
 		
 		zWaves.start();
 		timer2.start();
@@ -154,6 +162,7 @@ public class Panel extends JPanel {
 		peaTimer.start();
 		sunTimer.start();
 		movePlants.start();
+		peashooterTime.start();
 	}
 	protected void tick() {
 		lawn.shoot();
