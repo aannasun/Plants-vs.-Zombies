@@ -2,10 +2,11 @@ import java.awt.Graphics;
 
 abstract class Plants {
 	
-	int health = 30;
+	int health;
+	int x, y;
 	boolean shoot = true;
 	boolean left = true;
-
+	
 	public void draw(Graphics g) {
 				
 	}
@@ -27,6 +28,30 @@ abstract class Plants {
 		
 	}
 	
+	public boolean projectileAtZombie(Zombies z) {
+		return false;
+	}
+	
+	public void decreaseHealth(int i) {
+		health -= i;
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public int getCol() {
+		return (int) (x/75);
+	}
+	
+	public int getRow() {
+		return (int)(y/90);
+	}
+
 	public void setRestPosition() {
 		if (left == true)
 			left = false;
@@ -40,4 +65,6 @@ abstract class Plants {
 		else if (shoot == false)
 			shoot = true;
 	}
+	
+	public abstract Projectile getProjectile();
 }
