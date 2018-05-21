@@ -58,6 +58,16 @@ public class Pea{
 		return newPea;
 	}
 
+	public boolean atZombie(Zombies z) {
+		if(z.getX() == x) {
+			if(z.getY() <= y && (z.getY()+100 > y)){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	public void changeX() {
 		// TODO Auto-generated method stub
 		if(x<724) {
