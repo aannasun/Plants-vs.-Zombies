@@ -1,29 +1,25 @@
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Pea extends Projectile{
+public class Pea{
 	private int x;
 	private int y;
 	private int color;
 	private boolean stop = false;
 	private boolean newPea;
-	private boolean hit;
+	//size = 28
+	
 	BufferedImage pea; 
 	{
 		try 
 		{
 			pea = ImageIO.read(new File("pea.png"));
-		
-			
 		}
-
 		catch(IOException e) {
-
 		}
 	}
 	BufferedImage bpea; 
@@ -36,10 +32,14 @@ public class Pea extends Projectile{
 		}
 	}
 	
+	public Pea() {
+		
+	}
 	
-	public Pea(int x, int y) {
+	public Pea(int x, int y, int c) {
 		this.x = x;
 		this.y = y;
+		color = c;
 		newPea = false;
 	}
 	
@@ -69,29 +69,18 @@ public class Pea extends Projectile{
 			
 		}
 	}
-	
-	public boolean atZombie(Zombies z) {
-//		System.out.println(z.getY());
+
+	public void ifHit(Zombies z) {
 		if(z.getX() == x) {
-			if(z.getY() <= y && (z.getY()+100 > y)){
-//				stop = true;
-				return true;
+		System.out.println("hi");
+			if(z.getRow() == (int)(y/80)) {
+				System.out.println("hit");	
 			}
 		}
-		
-		return false;
 	}
-
-	@Override
-	public Point getCoord() {
-		
-		return new Point(x,y);
+	
+	public int getRow() {
+		return (int)(y/80);
 	}
-
-	@Override
-	public void stop() {
-		// TODO Auto-generated method stub
-		stop = true;
-	}
-
+	
 }
