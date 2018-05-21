@@ -25,6 +25,15 @@ public class Pea extends Projectile{
 
 		}
 	}
+	BufferedImage bpea; 
+	{
+		try 
+		{
+			bpea = ImageIO.read(new File("bpea.png"));
+		}
+		catch(IOException e) {
+		}
+	}
 	
 	
 	public Pea(int x, int y) {
@@ -35,7 +44,10 @@ public class Pea extends Projectile{
 	
 	public void draw(Graphics g) {
 		if(!stop) {
-		g.drawImage(pea, x, y, null);
+			if (color==0)
+				g.drawImage(pea, x, y, null);
+			if (color==1)
+				g.drawImage(bpea, x, y, null);
 		}
 		
 		
