@@ -6,6 +6,7 @@ abstract class Plants {
 	int x, y;
 	boolean shoot = true;
 	boolean left = true;
+
 	
 	public void draw(Graphics g) {
 				
@@ -45,11 +46,11 @@ abstract class Plants {
 	}
 	
 	public int getCol() {
-		return (int) (x/75);
+		return (int) ((x-145)/75);
 	}
 	
 	public int getRow() {
-		return (int)(y/90);
+		return (int)((y-80)/90);
 	}
 
 	public void setRestPosition() {
@@ -67,4 +68,6 @@ abstract class Plants {
 	}
 	
 	public abstract Projectile getProjectile();
+	
+
 }
