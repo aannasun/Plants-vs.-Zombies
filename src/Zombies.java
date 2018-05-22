@@ -29,7 +29,6 @@ public class Zombies {
 	}
 	
 	public Zombies(int row) {
-
 		xCol = 850;
 		yRow = row*90+80;
 	}
@@ -42,6 +41,7 @@ public class Zombies {
 		}
 	}
 	
+
 	public void move() {
 		xCol-=5;
 	}
@@ -64,7 +64,7 @@ public class Zombies {
 	}
 	
 	public int getCol() {
-		return (int) (xCol/75);
+		return (int) ((xCol-145)/75);
 	}
 	
 	public int getRow() {
