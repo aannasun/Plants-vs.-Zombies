@@ -34,7 +34,7 @@ public class Peashooter extends Plants{
 		xCol = x;
 		yRow = y;
 		health = 30;
-		p = new Pea(xCol+80, yRow+20);
+		p = new Pea(xCol+80, yRow+20, 0);
 	}
 
 	public void draw(Graphics g) {
@@ -59,7 +59,7 @@ public class Peashooter extends Plants{
 	}
 
 	public void newPea() {
-		p = new Pea(xCol+80, yRow+20);
+		p = new Pea(xCol+80, yRow+20, 0);
 	}
 
 	public boolean projectileAtZombie(Zombies z) {
