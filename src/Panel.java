@@ -110,7 +110,8 @@ public class Panel extends JPanel {
 		movePlants.addActionListener(new ActionListener() {		
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-// 				lawn.movePlants();
+				lawn.plantsShoot();
+				repaint();
 			}
 			
 		});
