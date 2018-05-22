@@ -12,15 +12,15 @@ public class Peashooter extends Plants{
 	//	private static int X_LEN  = 80;
 	//	private static int Y_WIDTH = 100;
 	private int xCol, yRow;
-	private boolean toLeft = true;
 	private Pea p;
-	private BufferedImage img, left, right;
+	private BufferedImage left, right, img1, img2;
 	{
 		try 
 		{
-			img = ImageIO.read(new File("peashooter.png"));
-			left = ImageIO.read(new File("peashooter_left.png"));
-			right = ImageIO.read(new File("peashooter_right.png"));
+			left = ImageIO.read(new File("peashooter1.png"));
+			right = ImageIO.read(new File("peashooter2.png"));
+			img1 = ImageIO.read(new File("peashot1.png"));
+			img2 = ImageIO.read(new File("peashot2.png"));
 		}
 
 		catch(IOException e) {
@@ -29,8 +29,8 @@ public class Peashooter extends Plants{
 	}
 
 	public Peashooter(int x, int y) {
-//		super(x, y);
-		img = left;
+		//		super(x, y);
+		//img = left;
 		xCol = x;
 		yRow = y;
 		health = 30;
@@ -38,38 +38,22 @@ public class Peashooter extends Plants{
 	}
 
 	public void draw(Graphics g) {
-//		if(toLeft) {
-//			g.drawImage(left, xCol, yRow, null);
-//			toLeft = false;
-//		}
-//		else {
-//			g.drawImage(right, xCol, yRow, null);
-//			toLeft = true;
-//		}
-		
-		g.drawImage(img, xCol, yRow, null);
-
-		if(p.newPea()) {
-			newPea();
+		if (health>0) {
+			if (shoot==true)
+				g.drawImage(img1, xCol, yRow, null);
+			if (shoot==false)
+				g.drawImage(img2, xCol, yRow, null);
+			if(p.newPea()) {
+				newPea();
+			}
+			p.draw(g);
 		}
-		p.draw(g);
 	}
-	
+
 	public int getRow() {
 		return (int)((yRow-80)/90);
 	}
 
-	public void move() {
-		if(toLeft) {
-			img = left;
-			toLeft = false;
-		}
-		else {
-			img = right;
-			toLeft = true;
-		}
-	}
-	
 	public String name() {
 		return "peashooter";
 	}
@@ -85,11 +69,11 @@ public class Peashooter extends Plants{
 	public int getX() {
 		return xCol;
 	}
-	
+
 	public int getY() {
 		return yRow;
 	}
-	
+
 	public void shoot() {	
 		p.changeX();	
 	}
