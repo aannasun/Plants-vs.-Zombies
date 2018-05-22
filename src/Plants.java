@@ -5,7 +5,8 @@ abstract class Plants {
 	int health;
 	int x, y;
 	boolean shoot = true;
-	boolean left = true;
+	boolean left_ = true;
+	boolean zombies = false;
 
 	
 	public void draw(Graphics g) {
@@ -54,10 +55,10 @@ abstract class Plants {
 	}
 
 	public void setRestPosition() {
-		if (left == true)
-			left = false;
-		else if (left == false)
-			left = true;
+		if (left_ == true)
+			left_ = false;
+		else if (left_ == false)
+			left_ = true;
 	}
 	
 	public void setShootPosition() {
