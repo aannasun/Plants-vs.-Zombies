@@ -12,13 +12,13 @@ import javax.swing.JOptionPane;
 public class Lawn {
 
 	private int x, y; 
-	private int timer = -1;
+	private int timer = -1;//timer used for zombie waves
 	private ArrayList<Plants> plants= new ArrayList<Plants>();
 	private ArrayList<ArrayList<Zombies>> zombies= new ArrayList<ArrayList<Zombies>>();
 	private ArrayList<Sun> suns = new ArrayList<Sun>();
 	private ArrayList<Sunflower> sunflowers = new ArrayList<Sunflower>();
 	private String s;
-	private int points = 400;
+	private int points = 500;
 	private BufferedImage lawn, frontyard, sun, sunflower_card, peashooter_card, walnut_card, cabbage_card, mine_card;
 	
 	public Lawn() {
@@ -159,7 +159,6 @@ public class Lawn {
 				}
 			}
 		}
-
 	}
 
 	public void movePlants() {
@@ -172,7 +171,7 @@ public class Lawn {
 	}
 
 	public void moveZombies() {
-		
+
 		for(ArrayList<Zombies> row: zombies) {
 			for(Zombies z: row) {
 				boolean atPlant = false;
@@ -225,7 +224,8 @@ public class Lawn {
 
 	public void shoot() {
 		for(Plants plant: plants) {
-			plant.shoot();
+			if((zombies.get(plant.getRow())).size() > 0) {
+				plant.shoot();
 				for(int i = 0; i < 5; i++) {
 					for(int j = 0; j < zombies.get(i).size(); j++) {
 						if(plant.projectileAtZombie(zombies.get(i).get(j))) {
@@ -243,18 +243,7 @@ public class Lawn {
 						}
 					}
 				}
+			}
 		}
-	}
-	
-	public void plantsShoot() {
-		for (Plants p: plants)
-			if (p.name().equals("peashooter"))
-				p.setShootPosition();
-	}
-	
-	public void plantsMove() {
-		for (Plants p: plants)
-			if (p.name().equals("peashooter"))
-				p.setRestPosition();
 	}
 }
