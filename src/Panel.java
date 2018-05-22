@@ -21,8 +21,8 @@ import javax.swing.UIManager;
 
 public class Panel extends JPanel {
 
-	static int LEN = 950;
-	static int WIDTH = 550;
+	static int LEN = 950;//720+100;//724;
+	static int WIDTH = 550; //500;//499;
 	private Lawn lawn = new Lawn();
 	
 	Timer timer = new Timer(125,null); //lawn.shoot, peaTimer.stop OKAY WAIT THIS DOESNT DO ANYTHING I THINK
@@ -147,14 +147,6 @@ public class Panel extends JPanel {
 			}
 			
 		});
-		peashooterTime.addActionListener(new ActionListener() {		
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				lawn.plantsShoot();
-				repaint();
-			}
-			
-		});
 		
 		zWaves.start();
 		timer2.start();
@@ -162,9 +154,9 @@ public class Panel extends JPanel {
 		peaTimer.start();
 		sunTimer.start();
 		movePlants.start();
-		peashooterTime.start();
 	}
 	protected void tick() {
+//		System.out.println("Timer went off!")
 		lawn.shoot();
 		repaint();
 		peaTimer.stop();
@@ -182,6 +174,7 @@ public class Panel extends JPanel {
 	
 	
 	public void paintComponent(Graphics g) {
+//		super.paintComponent(g);
 		lawn.draw(g);
 	}
 }
