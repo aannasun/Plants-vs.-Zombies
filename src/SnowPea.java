@@ -31,7 +31,7 @@ public class SnowPea extends Plants{
 		xCol = x;
 		yRow = y;
 		health = 30;
-		p = new Pea(xCol+80, yRow+20, 0);
+		p = new Pea(xCol+80, yRow+20, 1);
 	}
 
 	public void draw(Graphics g) {
