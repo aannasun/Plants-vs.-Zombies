@@ -39,10 +39,18 @@ public class Peashooter extends Plants{
 
 	public void draw(Graphics g) {
 		if (health>0) {
-			if (shoot==true)
-				g.drawImage(img1, xCol, yRow, null);
-			if (shoot==false)
-				g.drawImage(img2, xCol, yRow, null);
+			if (zombies==true ) {
+				if (shoot==true)
+					g.drawImage(img1, xCol, yRow, null);
+				if (shoot==false)
+					g.drawImage(img2, xCol, yRow, null);
+			}
+			else {
+				if (left_==true)
+					g.drawImage(left, xCol, yRow, null);
+				if (left_==false)
+					g.drawImage(right, xCol, yRow, null);
+			}
 			if(p.newPea()) {
 				newPea();
 			}
