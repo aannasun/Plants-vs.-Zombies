@@ -7,4 +7,5 @@ public abstract class Projectile {
 
 	public abstract void stop();
 
+	public abstract void go();
 }
