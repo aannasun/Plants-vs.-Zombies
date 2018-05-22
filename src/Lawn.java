@@ -228,6 +228,7 @@ public class Lawn {
 	public void shoot() {
 		for(Plants plant: plants) {
 			if((zombies.get(plant.getRow())).size() > 0) {
+				plant.zombies = true;
 				plant.shoot();
 				for(int i = 0; i < 5; i++) {
 					for(int j = 0; j < zombies.get(i).size(); j++) {
@@ -246,6 +247,10 @@ public class Lawn {
 						}
 					}
 				}
+			}
+			else {
+				plant.zombies = false;
+				plant.getProjectile().stop();
 			}
 		}
 	}
