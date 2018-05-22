@@ -9,14 +9,16 @@ import javax.imageio.ImageIO;
 public class Pea extends Projectile{
 	private int x;
 	private int y;
+	private int color;
 	private boolean stop;
 	private boolean newPea;
 	private boolean hit;
-	BufferedImage pea; 
+	BufferedImage pea, bpea; 
 	{
 		try 
 		{
 			pea = ImageIO.read(new File("pea.png"));
+			bpea = ImageIO.read(new File("bpea.png"));
 		
 			
 		}
@@ -27,16 +29,20 @@ public class Pea extends Projectile{
 	}
 	
 	
-	public Pea(int x, int y) {
+	public Pea(int x, int y, int c) {
 		this.x = x;
 		this.y = y;
+		this.color = c;
 		newPea = false;
 		stop = false;
 	}
 	
 	public void draw(Graphics g) {
 		if(!stop) {
-			g.drawImage(pea, x, y, null);
+			if (color == 0)
+				g.drawImage(pea, x, y, null);
+			if (color == 1)
+				g.drawImage(bpea, x, y, null);
 		}
 		
 		
