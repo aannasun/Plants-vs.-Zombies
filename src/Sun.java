@@ -25,7 +25,7 @@ public class Sun {
 	
 	public Sun() {
 		xCol = (int)(Math.random()*lawnWidth);
-		yRow = (int)(Math.random()*lawnHeight);
+		yRow = 0;
 	}
 	
 	public Sun(int x, int y) {
@@ -38,7 +38,7 @@ public class Sun {
 	}
 	
 	public void move() {
-		yRow+=10;
+		yRow+=1;
 	}
 	
 	public int getY() {
