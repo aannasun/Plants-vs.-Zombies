@@ -28,8 +28,8 @@ public class Panel extends JPanel {
 	Timer timer = new Timer(125,null); //lawn.shoot, peaTimer.stop OKAY WAIT THIS DOESNT DO ANYTHING I THINK
 	Timer timer2 = new Timer(500, null); //lawn.addZombie(); lawn.moveZombies(); lawn.makeSunsFromSunflowers();
 	Timer timer3 = new Timer(10000, null); //lawn.dropSun();
-	Timer peaTimer = new Timer(10, null); //make movingPea timer
-	Timer movingPea = new Timer(5, null); //lawn.shoot(), peaTimer.stop()
+	Timer peaTimer = new Timer(5, null); //make movingPea timer
+	Timer movingPea = new Timer(1, null); //lawn.shoot(), peaTimer.stop()
 	Timer sunTimer = new Timer(50, null); //lawn.moveSuns()
 	Timer zWaves = new Timer(10000, null); //make zombie waves
 	Timer movePlants = new Timer(500, null); //move the plants
