@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 public class Cabbage extends Plants{
 	
 	private int xCol, yRow;
+	private int health = 100;
 	private BufferedImage img;
 	{
 		try 
