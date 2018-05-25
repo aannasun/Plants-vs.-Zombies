@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 public class Lawn {
 
+	private boolean end = false;
 	private int x, y; 
 	private int timer = -1;//timer used for zombie waves
 	private ArrayList<Plants> plants= new ArrayList<Plants>();
@@ -45,13 +46,16 @@ public class Lawn {
 	}
 
 	public void draw(Graphics g) {
-		g.drawImage(lawn, 0, 0, null);
-		g.drawImage(sunflower_card, 850, 0, null);
-		g.drawImage(peashooter_card, 850, 60, null);
-		g.drawImage(walnut_card, 850, 120, null);
-		g.drawImage(cabbage_card, 850, 180, null);
-		g.drawImage(mine_card, 850, 240, null);
-		g.drawImage(snowpea_card, 850, 300, null);
+		if (end)
+			g.drawImage(urbrains, 109, 0, null);
+		else {
+			g.drawImage(lawn, 0, 0, null);
+			g.drawImage(sunflower_card, 850, 0, null);
+			g.drawImage(peashooter_card, 850, 60, null);
+			g.drawImage(walnut_card, 850, 120, null);
+			g.drawImage(cabbage_card, 850, 180, null);
+			g.drawImage(mine_card, 850, 240, null);
+			g.drawImage(snowpea_card, 850, 300, null);
 		for(Plants p: plants) {
 			p.draw(g);
 		}
@@ -59,6 +63,7 @@ public class Lawn {
 			for(Zombies z: row) {
 				z.draw(g);
 			}
+		}
 		}
 		for(Sun s: suns) {
 			s.draw(g);
