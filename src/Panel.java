@@ -28,11 +28,12 @@ public class Panel extends JPanel {
 	Timer timer = new Timer(125,null); //lawn.shoot, peaTimer.stop OKAY WAIT THIS DOESNT DO ANYTHING I THINK
 	Timer timer2 = new Timer(500, null); //lawn.addZombie(); lawn.moveZombies(); lawn.makeSunsFromSunflowers();
 	Timer timer3 = new Timer(10000, null); //lawn.dropSun();
-	Timer peaTimer = new Timer(5, null); //make movingPea timer
-	Timer movingPea = new Timer(1, null); //lawn.shoot(), peaTimer.stop()
+	Timer peaTimer = new Timer(10, null); //make movingPea timer
+	Timer movingPea = new Timer(5, null); //lawn.shoot(), peaTimer.stop()
 	Timer sunTimer = new Timer(50, null); //lawn.moveSuns()
 	Timer zWaves = new Timer(10000, null); //make zombie waves
 	Timer movePlants = new Timer(500, null); //move the plants
+	Timer lawnMowers = new Timer(5, null); //for the progress of the lawnmowers
 	public static void main(String[] args) {
 		try {
 			// Set System L&F
@@ -100,6 +101,13 @@ public class Panel extends JPanel {
 	}
 	
 	private void startGame() {
+		lawnMowers.addActionListener(new ActionListener() {		
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				lawn.moveLawnmowers();
+			}
+			
+		});
 		zWaves.addActionListener(new ActionListener() {		
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -110,7 +118,9 @@ public class Panel extends JPanel {
 		movePlants.addActionListener(new ActionListener() {		
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				lawn.plantsShoot();
+				lawn.movePlants();
+//				lawn.plantsMove();
+//				lawn.plantsShoot();
 				repaint();
 			}
 			
@@ -126,8 +136,12 @@ public class Panel extends JPanel {
 		timer2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+//				lawn.addZombie();
 				lawn.moveZombies();
+				lawn.checkLawnmowers();
 				lawn.makeSunsFromSunflowers();
+//				lawn.checkZombies();
+//				lawn.moveSuns();
 				repaint();
 			}
 		});
@@ -149,12 +163,15 @@ public class Panel extends JPanel {
 			
 		});
 		
+		lawnMowers.start();
 		zWaves.start();
+//		timer.start();
 		timer2.start();
 		timer3.start();
 		peaTimer.start();
 		sunTimer.start();
 		movePlants.start();
+//		lawn.add("peashooter", 0, 0);
 	}
 	protected void tick() {
 //		System.out.println("Timer went off!")
