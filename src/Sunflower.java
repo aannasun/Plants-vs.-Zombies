@@ -10,11 +10,14 @@ public class Sunflower{
 	private int health = 30;
 	private int notTimer = 0;
 	private int xCol, yRow;
-	private BufferedImage img;
+	private boolean toLeft = true;
+	private BufferedImage img, left, right;
 	{
 		try 
 		{
 			img = ImageIO.read(new File("sunflower.png"));
+			left = ImageIO.read(new File("sunflower_left.png"));
+			right = ImageIO.read(new File("sunflower_right.png"));
 		}
 
 		catch(IOException e) {
@@ -23,14 +26,30 @@ public class Sunflower{
 	}
 	
 	public Sunflower(int x, int y) {
+		img = left;
 		xCol = x;
 		yRow = y;
 	}
 	
 
 	public void draw(Graphics g) {
-		if (health>0)
-			g.drawImage(img, xCol, yRow, null);
+		g.drawImage(img, xCol, yRow, null);
+//		notTimer++;
+//		if(notTimer % 20 == 0) {
+//			Sun s = new Sun(xCol + 50, yRow);
+//			s.draw(g);
+//		}
+	}
+	
+	public void move() {
+		if(toLeft) {
+			img = left;
+			toLeft = false;
+		}
+		else {
+			img = right;
+			toLeft = true;
+		}
 	}
 	
 	public Sun newSun() {
