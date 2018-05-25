@@ -78,7 +78,7 @@ public class Lawn {
 
 	public void draw(Graphics g) {
 		if(end) {
-			g.drawImage(urbrains, 109, 0, null);
+			g.drawImage(urbrains, 0, 0, 950, 580, null);
 		}
 		else {
 			g.drawImage(lawn, 0, 0, null);
