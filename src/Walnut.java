@@ -56,4 +56,16 @@ public class Walnut extends Plants{
 	public int getHealth() {
 		return health;
 	}
+	
+	@Override
+	public Projectile getProjectile() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public boolean isProjectile() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
