@@ -6,7 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Cabbage extends Plants{
-	
+	private CabbageP cabbageP;
 	private int xCol, yRow;
 	private int health = 100;
 	private BufferedImage img;
@@ -29,5 +29,17 @@ public class Cabbage extends Plants{
 	public void draw(Graphics g) {
 		if (health>0)
 			g.drawImage(img, xCol, yRow, null);
+	}
+	
+		@Override
+	public Projectile getProjectile() {
+		// TODO Auto-generated method stub
+		return cabbageP;
+	}
+
+	@Override
+	public boolean isProjectile() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 }
