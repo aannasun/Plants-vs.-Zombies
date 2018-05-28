@@ -81,4 +81,9 @@ public class SnowPea extends Plants{
 		// TODO Auto-generated method stub
 		return p;
 	}
+	@Override
+	public boolean isProjectile() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }
