@@ -69,6 +69,7 @@ abstract class Plants {
 	}
 	
 	public abstract Projectile getProjectile();
+	public abstract boolean isProjectile();
 	
 
 }
