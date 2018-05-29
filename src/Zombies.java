@@ -11,15 +11,14 @@ public class Zombies {
 	private int health = 30;
 	private static int damage = 20;
 	private int xCol, yRow;
-	private BufferedImage img, broken, walkingleft, walkingright;
+	private boolean cold = false;
+	private BufferedImage img, broken, blue;
 	private int twoSeconds = 0;
-	private boolean left = true;
 	{
 		try 
 		{
 			img = ImageIO.read(new File("zombie.png"));
-			walkingleft = ImageIO.read(new File("z_left.png"));
-			walkingright = ImageIO.read(new File("z_right.png"));
+			blue = ImageIO.read(new File("blue_zombie.png"));
 		}
 
 		catch(IOException e) {
@@ -42,13 +41,13 @@ public class Zombies {
 	
 	public void draw(Graphics g) {
 		if(health > 0) {
-			if(left) {
-				g.drawImage(walkingleft, xCol, yRow, null);
-			}
-			else {
-				g.drawImage(walkingright, xCol, yRow, null);
-			}
-//			g.drawImage(img, xCol, yRow, null);
+			g.drawImage(img, xCol, yRow, null);
+		}
+		if (cold){
+//			if(twoSeconds < 3) {
+//				g.drawImage(broken, xCol yRow, null);
+//			}
+			g.drawImage(blue, xCol, yRow, null);
 		}
 	}
 	
@@ -57,13 +56,10 @@ public class Zombies {
 //	}
 //	
 	public void move() {
-		xCol-=5;
-		if(left) {
-			left = false;
+		if(cold) {
+			xCol -= 1;
 		}
-		else {
-			left = true;
-		}
+		else xCol-=5;
 	}
 	
 	public boolean checkIfAtPlant(Plants p) {
@@ -102,4 +98,11 @@ public class Zombies {
 	public void decreaseHealth(int i) {
 		health -= i;
 	}
+	
+	public void slow() {
+		cold = true;
+	}
+
+	
+	
 }
