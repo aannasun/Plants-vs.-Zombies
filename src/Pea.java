@@ -9,18 +9,17 @@ import javax.imageio.ImageIO;
 public class Pea extends Projectile{
 	private int x;
 	private int y;
-	private int color;
 	private boolean stop;
 	private boolean newPea;
 	private boolean hit;
+	private int color;
+	private boolean cold = false;
 	BufferedImage pea, bpea; 
 	{
 		try 
 		{
 			pea = ImageIO.read(new File("pea.png"));
 			bpea = ImageIO.read(new File("bpea.png"));
-		
-			
 		}
 
 		catch(IOException e) {
@@ -32,17 +31,19 @@ public class Pea extends Projectile{
 	public Pea(int x, int y, int c) {
 		this.x = x;
 		this.y = y;
-		this.color = c;
+		color = c;
 		newPea = false;
 		stop = false;
 	}
 	
 	public void draw(Graphics g) {
 		if(!stop) {
-			if (color == 0)
+			if(color == 0) {
 				g.drawImage(pea, x, y, null);
-			if (color == 1)
+			}
+			if(color == 1) {
 				g.drawImage(bpea, x, y, null);
+			}
 		}
 		
 		
@@ -65,6 +66,7 @@ public class Pea extends Projectile{
 	}
 	
 	public boolean atZombie(Zombies z) {
+//		System.out.println(z.getY());
 		if(z.getX() == x) {
 			if(z.getY() <= y && (z.getY()+100 > y)){
 //				stop = true;
@@ -89,6 +91,15 @@ public class Pea extends Projectile{
 	
 	public void go() {
 		stop = false;
+	}
+	
+	public void slow() {
+		cold = true; 
+	}
+
+	public boolean cold() {
+		// TODO Auto-generated method stub
+		return cold;
 	}
 
 }
