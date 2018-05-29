@@ -34,6 +34,7 @@ public class Panel extends JPanel {
 	Timer zWaves = new Timer(10000, null); //make zombie waves
 	Timer movePlants = new Timer(500, null); //move the plants
 	Timer lawnMowers = new Timer(5, null); //for the progress of the lawnmowers
+	Timer potatoTime = new Timer(500, null); //how long the potato is underground
 	public static void main(String[] args) {
 		try {
 			// Set System L&F
@@ -162,6 +163,14 @@ public class Panel extends JPanel {
 			}
 			
 		});
+		potatoTime.addActionListener(new ActionListener() {		
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				lawn.potato();
+				repaint();
+			}
+			
+		});
 		
 		lawnMowers.start();
 		zWaves.start();
@@ -171,6 +180,7 @@ public class Panel extends JPanel {
 		peaTimer.start();
 		sunTimer.start();
 		movePlants.start();
+		potatoTime.start();
 //		lawn.add("peashooter", 0, 0);
 	}
 	protected void tick() {
