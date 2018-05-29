@@ -7,6 +7,8 @@ abstract class Plants {
 	boolean shoot = true;
 	boolean left_ = true;
 	boolean zombies = false;
+	static boolean onZombies = false;
+	int time = 0;
 
 	
 	public void draw(Graphics g) {
