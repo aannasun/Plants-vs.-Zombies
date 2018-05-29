@@ -7,7 +7,6 @@ import javax.imageio.ImageIO;
 
 
 public class SnowPea extends Plants{
-
 	private static int damage = 20;
 	//	private static int X_LEN  = 80;
 	//	private static int Y_WIDTH = 100;
@@ -19,14 +18,12 @@ public class SnowPea extends Plants{
 		{
 			img1 = ImageIO.read(new File("snowpea.png"));
 		}
-
 		catch(IOException e) {
-
 		}
 	}
 
 	public SnowPea(int x, int y) {
-		//		super(x, y);
+		//super(x, y);
 		//img = left;
 		xCol = x;
 		yRow = y;
@@ -61,6 +58,9 @@ public class SnowPea extends Plants{
 	}
 
 	public boolean projectileAtZombie(Zombies z) {
+		if(p.atZombie(z)) {
+			p.slow();
+		}
 		return p.atZombie(z);
 	}
 
@@ -81,6 +81,7 @@ public class SnowPea extends Plants{
 		// TODO Auto-generated method stub
 		return p;
 	}
+
 	@Override
 	public boolean isProjectile() {
 		// TODO Auto-generated method stub
