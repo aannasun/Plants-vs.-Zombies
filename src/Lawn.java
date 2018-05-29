@@ -29,7 +29,7 @@ public class Lawn {
 	//card height = 60;
 	//private Block[][] grid = new Block[5][9];
 	private boolean[][] plantHere = new boolean[5][9];
-	private BufferedImage lawn, frontyard, sun, sunflower_card, peashooter_card, walnut_card, cabbage_card, mine_card, snowpea_card, urbrains;
+	private BufferedImage lawn, frontyard, sun, sunflower_card, peashooter_card, walnut_card, cabbage_card, mine_card, snowpea_card, bokchoi_card, urbrains;
 	/*
 	 *  added lawn as an image, used it instead of the frontyard pic, changed dimensions of panel to 950 by 550
 	 *  actual lawn starts at x = 145
@@ -56,6 +56,7 @@ public class Lawn {
 				cabbage_card = ImageIO.read(new File("cabbage_card.png"));
 				mine_card = ImageIO.read(new File("mine_card.png"));
 				snowpea_card = ImageIO.read(new File("snowpea_card.png"));
+				bokchoi_card = ImageIO.read(new File("bokchoi_card.png"));
 				urbrains = ImageIO.read(new File("urbrains.png"));
 			}	
 			catch(IOException e) {
@@ -94,6 +95,7 @@ public class Lawn {
 			g.drawImage(cabbage_card, 850, 180, null);
 			g.drawImage(mine_card, 850, 240, null);
 			g.drawImage(snowpea_card, 850, 300, null);
+			g.drawImage(bokchoi_card, 850, 360, null);
 			for(Plants p: plants) {
 				p.draw(g);
 			}
@@ -157,6 +159,12 @@ public class Lawn {
 					points -=175;
 				}
 			}
+			else if(s.equals("bokchoi")) {
+				if(points >= 150) {
+					plants.add(new Bokchoi(x, y));
+					points -=150;
+				}
+			}
 //			plantHere[(int)((y-80)/90)][(int)((x-145)/80)] = true;
 //		}
 	} 
@@ -199,6 +207,9 @@ public class Lawn {
 		}
 		else if(y > 300 && y <= 360) {
 			s = "snowpea";
+		}
+		else if(y > 360 && y <= 420) {
+			s = "bokchoi";
 		}
 		else {
 			s = "";
@@ -292,6 +303,10 @@ public class Lawn {
 				if(plants.size() > 0) {
 					for(Plants p: plants) {
 						if(z.checkIfAtPlant(p)) {
+							if (p.name().equals("mine")) {
+								row.remove(z);
+								plants.remove(p);
+							}
 							atPlant = true;
 							p.decreaseHealth(5);
 							if(p.getHealth() <= 0) {
@@ -422,6 +437,18 @@ public class Lawn {
 				}
 			}
 		}
+	}
+	
+	public void potato() {
+		//System.out.println("hiii");
+		for (Plants p: plants) {
+			//System.out.println(p.name());
+			if (p.name().equals("mine")) {
+				//System.out.println("potato");
+				p.time++;
+			}
+		}
+		
 	}
 	
 	public void plantsShoot() {
