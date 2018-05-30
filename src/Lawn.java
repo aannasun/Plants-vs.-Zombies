@@ -397,11 +397,8 @@ public class Lawn {
 	}
 	
 	public void potato() {
-		//System.out.println("hiii");
 		for (Plants p: plants) {
-			//System.out.println(p.name());
 			if (p.name().equals("mine")) {
-				//System.out.println("potato");
 				p.time++;
 			}
 		}
