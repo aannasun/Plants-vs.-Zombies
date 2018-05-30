@@ -325,25 +325,7 @@ public class Lawn {
 //			System.out.println(plant.getRow());
 //			plant.shoot();
 			if((zombies.get(plant.getRow())).size() > 0) {
-				//start of new stuff
-//				plant.zombies = true;
-				//end of new stuff
 				plant.shoot();
-//				plant.getProjectile().go();
-				////			for(Zombies zombie: z) {
-				//			for(int i = 0; i < z.size(); i++) {
-				//				//	if(plant.getRow() == zombie.getRow()) {
-				////				plant.shoot();
-				//				//	}
-				//				if(plant.projectileAtZombie(z.get(i))) {
-				//				//System.out.println(z.indexOf(zombie));
-				//					z.get(i).decreaseHealth(5);
-				//					if(z.get(i).getHealth() <= 0) {
-				//						z.remove(z.get(i));
-				//						//break;
-				//					}
-				//				}
-				//			}
 				for(int i = 0; i < 5; i++) {
 					for(int j = 0; j < zombies.get(i).size(); j++) {
 						if(plant.isProjMotion()) {
