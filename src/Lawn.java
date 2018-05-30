@@ -264,39 +264,6 @@ public class Lawn {
 	}
 
 	public void moveZombies() {
-		//		boolean atPlant = false;
-		//		for(Zombies zombie: z) {
-		//			boolean atPlant = false;
-		//			if(plants.size() > 0) {
-		//				//				for(int i = 0; i < plants.size(); i++) {
-		//				for(Plants p: plants) {
-		//					//	System.out.println(p.name());
-		//					//	System.out.println(plants.indexOf(p));
-		//					//	Plants p = plants.get(i);
-		//					if(zombie.checkIfAtPlant(p)) {
-		//						//		System.out.println(p.name());
-		//						atPlant = true;
-		//						p.decreaseHealth(5);
-		//						if(p.getHealth() <= 0) {
-		//							plants.remove(p);
-		//							break;
-		//						}
-		//					}
-		//					//	else {
-		//					//		System.out.println("move");
-		//					//		zombie.move();
-		//					//	}
-		//				}
-		//			}
-		//			//else {
-		//			//	zombie.move();
-		//			//}
-		//
-		//			if(!atPlant) {
-		//				zombie.move();
-		//			}
-		//		}
-
 		for(ArrayList<Zombies> row: zombies) {
 			for(Zombies z: row) {
 				boolean atPlant = false;
@@ -310,7 +277,6 @@ public class Lawn {
 							atPlant = true;
 							p.decreaseHealth(5);
 							if(p.getHealth() <= 0) {
-//								plantHere[p.getRow()][p.getCol()] = false;
 								plants.remove(p);
 								break;
 							}
