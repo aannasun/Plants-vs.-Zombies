@@ -382,6 +382,11 @@ public class Lawn {
 					for(int j = 0; j < zombies.get(i).size(); j++) {
 						if(plant.projectileAtZombie(zombies.get(i).get(j))) {
 							zombies.get(i).get(j).decreaseHealth(5);
+							if(plant.isProjectile()) {
+								if(plant.getProjectile().cold()) {
+									zombies.get(i).get(j).slow();
+								}
+							}
 							if(zombies.get(i).get(j).getHealth() <= 0) {
 								zombies.get(i).remove(zombies.get(i).get(j));
 							}
