@@ -380,6 +380,10 @@ public class Lawn {
 				//			}
 				for(int i = 0; i < 5; i++) {
 					for(int j = 0; j < zombies.get(i).size(); j++) {
+						if(plant.isProjMotion()) {
+							plant.zombCoord(zombies.get(i).get(j).getX(), zombies.get(i).get(j).getY());
+							plant.shoot();
+						}
 						if(plant.projectileAtZombie(zombies.get(i).get(j))) {
 							zombies.get(i).get(j).decreaseHealth(5);
 							if(plant.isProjectile()) {
