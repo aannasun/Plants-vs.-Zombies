@@ -83,12 +83,6 @@ public class Lawn {
 		}
 		else {
 			g.drawImage(lawn, 0, 0, null);
-		//		g.drawImage(frontyard, 0, 0, null);
-		//		g.drawImage(sunflower_card, 720, 0, null);
-		//		g.drawImage(peashooter_card, 720, 60, null);
-		//		g.drawImage(walnut_card, 720, 120, null);
-		//		g.drawImage(cabbage_card, 720, 180, null);
-		//		g.drawImage(mine_card, 720, 240, null);
 			g.drawImage(sunflower_card, 850, 0, null);
 			g.drawImage(peashooter_card, 850, 60, null);
 			g.drawImage(walnut_card, 850, 120, null);
@@ -99,9 +93,6 @@ public class Lawn {
 			for(Plants p: plants) {
 				p.draw(g);
 			}
-		//		for(Zombies zombies: z) {
-		//			zombies.draw(g);
-		//		}
 			for(ArrayList<Zombies> row: zombies) {
 				for(Zombies z: row) {
 					z.draw(g);
@@ -122,7 +113,6 @@ public class Lawn {
 	}
 
 	public void add(String s, int x, int y) {
-//		if(!plantHere[(int)((y-80)/90)][(int)((x-145)/80)]) {
 			if(s.equals("sunflower")) {
 				if(points >= 50) {
 					sunflowers.add(new Sunflower(x, y));
@@ -165,8 +155,6 @@ public class Lawn {
 					points -=150;
 				}
 			}
-//			plantHere[(int)((y-80)/90)][(int)((x-145)/80)] = true;
-//		}
 	} 
 
 	public void addStuff() {
@@ -177,8 +165,6 @@ public class Lawn {
 	public void justClicked(int x, int y) {
 		int a = x-150;
 		int b = y-80;
-		//		this.x = (x/80)*80;
-		//		this.y = (y/100)*100;
 		this.x = (a/75)*75+150;
 		this.y = (b/90)*90+80;
 		for(int i = suns.size()-1; i>-1; i--) {
@@ -217,40 +203,29 @@ public class Lawn {
 	}
 
 	public void addZombie() {
-		//		if(numZ > 0) {
-		//			z.add(new Zombies());
-		//			numZ--;
 		//		}
 		timer++;
 		if(timer < 5) {
-			//			System.out.println(timer);
-			//			z.add(new Zombies());
 			Zombies z = new Zombies();
 			(zombies.get(z.getRow())).add(z);
-
-			//			int i = (int)(Math.random()*5)
 		}
 		else if(timer == 9) {
 			for(int i = 0; i < 5; i++) {
-				//				z.add(new Zombies(i));
 				(zombies.get(i)).add(new Zombies(i));
 			}
 		}
 
 		else if(timer < 11) {
-			//			z.add(new Zombies());
 			Zombies z = new Zombies();
 			(zombies.get(z.getRow())).add(z);
 		}
 		else if(timer == 11) {
 			for(int j = 0; j < 2; j++) {
 				for(int i = 0; i < 5; i++) {
-					//					z.add(new Zombies(i));
 					(zombies.get(i)).add(new Zombies(i));
 				}
 			}
 		}
-		//		z.add(new Zombies());
 
 	}
 
@@ -320,10 +295,6 @@ public class Lawn {
 
 	public void shoot() {
 		for(Plants plant: plants) {
-		
-//			int row = plant.getRow();
-//			System.out.println(plant.getRow());
-//			plant.shoot();
 			if((zombies.get(plant.getRow())).size() > 0) {
 				plant.shoot();
 				for(int i = 0; i < 5; i++) {
@@ -353,9 +324,7 @@ public class Lawn {
 					}
 				}
 			}
-			//more added stuff
 			else {
-//				plant.zombies = false;
 				if(plant.isProjectile()) {
 					plant.getProjectile().stop();
 				}
