@@ -14,20 +14,14 @@ public class Lawn {
 	private int x, y; 
 	private int timer = -1;//timer used for zombie waves
 	private ArrayList<Plants> plants= new ArrayList<Plants>();
-	//	private ArrayList<Zombies> z = new ArrayList<Zombies>();
 	private ArrayList<ArrayList<Zombies>> zombies= new ArrayList<ArrayList<Zombies>>();
 	private ArrayList<Sun> suns = new ArrayList<Sun>();
 	private ArrayList<Sunflower> sunflowers = new ArrayList<Sunflower>();
-	//	private final int SIDE = 80;
 	private String s;
 	private boolean end = false;
-	//	private int numZ = 2;//5;
 	private int points = 500;
-//	private ArrayList<Lawnmower> lawnmowers = new ArrayList<Lawnmower>();
 	private Lawnmower[] lawnmowers = new Lawnmower[5];
 	private boolean[] areLawnmowers = new boolean[5];
-	//card height = 60;
-	//private Block[][] grid = new Block[5][9];
 	private boolean[][] plantHere = new boolean[5][9];
 	private BufferedImage lawn, frontyard, sun, sunflower_card, peashooter_card, walnut_card, cabbage_card, mine_card, snowpea_card, bokchoi_card, urbrains;
 	/*
