@@ -11,19 +11,19 @@ public class Pea extends Projectile{
 	private int y;
 	private boolean stop;
 	private boolean newPea;
-	private boolean hit;
+	private boolean hit, cold;
 	private int color;
-	private boolean cold = false;
 	BufferedImage pea, bpea; 
 	{
 		try 
 		{
-			pea = ImageIO.read(new File("pea.png"));
-			bpea = ImageIO.read(new File("bpea.png"));
+//			pea = ImageIO.read(new File("pea.png"));
+//			bpea = ImageIO.read(new File("bpea.png"));
+			pea = ImageIO.read((getClass().getResource("pea.png")));
+			bpea = ImageIO.read((getClass().getResource("bpea.png")));
 		}
-
 		catch(IOException e) {
-
+			e.printStackTrace();
 		}
 	}
 	
@@ -45,8 +45,6 @@ public class Pea extends Projectile{
 				g.drawImage(bpea, x, y, null);
 			}
 		}
-		
-		
 	}
 	
 	public boolean newPea() {
@@ -54,7 +52,6 @@ public class Pea extends Projectile{
 	}
 
 	public void changeX() {
-		// TODO Auto-generated method stub
 		if(x<830) {
 			x++;
 		}
@@ -66,10 +63,8 @@ public class Pea extends Projectile{
 	}
 	
 	public boolean atZombie(Zombies z) {
-//		System.out.println(z.getY());
 		if(z.getX() == x) {
 			if(z.getY() <= y && (z.getY()+100 > y)){
-//				stop = true;
 				return true;
 			}
 		}
@@ -85,21 +80,19 @@ public class Pea extends Projectile{
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
 		stop = true;
 	}
 	
 	public void go() {
 		stop = false;
 	}
-	
-	public void slow() {
+
+	public void slow(Zombies z) {
 		cold = true; 
+		z.slow();
 	}
 
 	public boolean cold() {
-		// TODO Auto-generated method stub
 		return cold;
 	}
-
 }

@@ -9,22 +9,25 @@ import javax.imageio.ImageIO;
 public class Sun {
 
 	private BufferedImage img;
-	private int xCol, yRow;
-	private static int lawnHeight = 500, lawnWidth = 720, side = 50;
+	private int xCol, yRow, stop;
+	private static int lawnHeight = 550, //500, 
+			lawnWidth = 720, 
+			side = 50;
 	
 	{
 		try 
 		{
-			img = ImageIO.read(new File("sun.png"));
+//			img = ImageIO.read(new File("sun.png"));
+			img = ImageIO.read((getClass().getResource("sun.png")));
 		}
-
 		catch(IOException e) {
-
+			e.printStackTrace();
 		}
 	}
 	
 	public Sun() {
-		xCol = (int)(Math.random()*lawnWidth);
+		xCol = (int)(Math.random()*(lawnWidth-side))+145;
+		stop = (int)(Math.random()*lawnHeight);
 		yRow = 0;
 	}
 	
@@ -37,14 +40,19 @@ public class Sun {
 		g.drawImage(img, xCol, yRow, null);
 	}
 	
+	//moves the sun
 	public void move() {
-		yRow+=1;
+		if(yRow <= stop) {
+			yRow+=1;
+		}
 	}
 	
+	//returns y
 	public int getY() {
 		return yRow;
 	}
 	
+	//returns true if the sun was clicked
 	public boolean checkIfClicked(int x, int y) {
 		if(x >= xCol && x < xCol+side) {
 			if(y >= yRow && y < yRow+side) {

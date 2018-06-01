@@ -15,11 +15,11 @@ public class Lawnmower {
 	{
 		try 
 		{
-			img = ImageIO.read(new File("lawnmower.png"));			
+//			img = ImageIO.read(new File("lawnmower.png"));	
+			img = ImageIO.read((getClass().getResource("lawnmower.png")));
 		}
-
 		catch(IOException e) {
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -35,20 +35,24 @@ public class Lawnmower {
 		}
 	}
 	
+	//moves the lawnmower
 	public void move() {
 		if(x < 830-50) {
 			x++;
 		}
 	}
 	
+	//sets the lawnmower so it is ready to go
 	public void go() {
 		go = true;
 	}
 	
+	//returns go
 	public boolean toGo() {
 		return go;
 	}
 	
+	//returns x
 	public int getX() {
 		return x+71;
 	}

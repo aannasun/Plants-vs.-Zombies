@@ -7,37 +7,30 @@ import javax.imageio.ImageIO;
 
 
 public class SnowPea extends Plants{
-	private static int damage = 20;
-	//	private static int X_LEN  = 80;
-	//	private static int Y_WIDTH = 100;
-	private int xCol, yRow;
+	
 	private Pea p;
 	private BufferedImage img1;
 	{
 		try 
 		{
-			img1 = ImageIO.read(new File("snowpea.png"));
+//			img1 = ImageIO.read(new File("snowpea.png"));
+			img1 = ImageIO.read((getClass().getResource("snowpea.png")));
 		}
 		catch(IOException e) {
+			e.printStackTrace();
 		}
 	}
 
 	public SnowPea(int x, int y) {
-		//super(x, y);
-		//img = left;
-		xCol = x;
-		yRow = y;
-		health = 30;
-		p = new Pea(xCol+80, yRow+20, 1);
+		setX(x);
+		setY(y);
+		setHealth(30);
+		p = new Pea(getX()+80, getY()+20, 1);
 	}
 
 	public void draw(Graphics g) {
-		if (health>0) {
-			g.drawImage(img1, xCol, yRow, null);
-			/*if (shoot==true)
-				g.drawImage(img1, xCol, yRow, null);
-			if (shoot==false)
-				g.drawImage(img2, xCol, yRow, null);*/
+		if (getHealth()>0) {
+			g.drawImage(img1, getX(), getY(), null);
 			if(p.newPea()) {
 				newPea();
 			}
@@ -45,46 +38,42 @@ public class SnowPea extends Plants{
 		}
 	}
 
-	public int getRow() {
-		return (int)((yRow-80)/90);
-	}
-
+	//returns name
 	public String name() {
 		return "snowpea";
 	}
 
+	//creates a new pea
 	public void newPea() {
-		p = new Pea(xCol+80, yRow+20, 1);
+		p = new Pea(getX()+80, getY()+20, 1);
 	}
 
+	//returns is the projectile is at the zombie, slows the zombie if the snowpea projectile is at it
 	public boolean projectileAtZombie(Zombies z) {
+		//
 		if(p.atZombie(z)) {
-			p.slow();
+			p.slow(z);
 		}
 		return p.atZombie(z);
 	}
 
-	public int getX() {
-		return xCol;
-	}
-
-	public int getY() {
-		return yRow;
-	}
-
+	//shoots the projectile
 	public void shoot() {	
 		p.changeX();	
 	}
 
-	@Override
+	//returns the projectile
 	public Projectile getProjectile() {
-		// TODO Auto-generated method stub
 		return p;
 	}
 
-	@Override
+	//returns true because there is a projectile
 	public boolean isProjectile() {
-		// TODO Auto-generated method stub
 		return true;
+	}
+
+	//move
+	public void move() {
+		
 	}
 }

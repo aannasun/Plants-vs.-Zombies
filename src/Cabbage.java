@@ -8,15 +8,15 @@ import javax.imageio.ImageIO;
 
 public class Cabbage extends Plants {
 
-	private int xCol, yRow;
 	private CabbageP cabbageP;
-	private int health = 30;
+//	private int health = 30;
 	private int zx, zy;
 	private BufferedImage img;
 	{
 		try 
 		{
-			img = ImageIO.read(new File("cabbage.png"));
+//			img = ImageIO.read(new File("cabbage.png"));
+			img = ImageIO.read((getClass().getResource("cabbage.png")));
 		}
 
 		catch(IOException e) {
@@ -25,14 +25,15 @@ public class Cabbage extends Plants {
 	}
 
 	public Cabbage(int x, int y) {
-		xCol = x;
-		yRow = y;
-		cabbageP = new CabbageP(xCol+80, yRow-200, zx, zy);
+		setX(x);
+		setY(y);
+		setHealth(30);
+		cabbageP = new CabbageP(getX()+20, getY(), zx, zy);
 	}
 
 	public void draw(Graphics g) {
-		if (health>0) {
-			g.drawImage(img, xCol, yRow, null);
+		if (getHealth()>0) {
+			g.drawImage(img, getX(), getY(), null);
 			
 				if(cabbageP.newCabbage()) {
 					newCabbage();
@@ -41,45 +42,50 @@ public class Cabbage extends Plants {
 			}
 	}
 
+	//creates a new projectile
 	private void newCabbage() {
-		cabbageP = new CabbageP(xCol+80, yRow-200, zx, zy);
+		cabbageP = new CabbageP(getX()+20, getY(), zx, zy);
 	}
 
+	//returns name
 	public String name() {
 		return "cabbage";
 	}
 
+	//shoots the projectile
 	public void shoot() {
 		cabbageP.shoot();
 	}
 
-	@Override
+	//returns the projectile
 	public Projectile getProjectile() {
 		return cabbageP;
 	}
 
 
-	@Override
+	//returns true because there is a projectile
 	public boolean isProjectile() {
 		return true;
 	}
 
+	//returns true because there is projectile motion
 	public boolean isProjMotion() {
-		return true;
-		
+		return true;	
 	}
 
+	//sets the zombie coordinates
 	public void zombCoord(int x, int y) {
 		zx = x;
 		zy = y;
 	}
 
+	//returns true if the projectile is at the zombie
 	public boolean projectileAtZombie(Zombies z) {
 		return cabbageP.atZombie(z);
 	}
-	
-	public int getRow() {
-		return (int)((yRow-80)/90);
+
+	//moves
+	public void move() {
+		
 	}
 }
-

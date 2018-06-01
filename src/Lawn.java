@@ -12,49 +12,54 @@ import javax.swing.JOptionPane;
 public class Lawn {
 
 	private int x, y; 
-	private int timer = -1;//timer used for zombie waves
-	private ArrayList<Plants> plants= new ArrayList<Plants>();
-	private ArrayList<ArrayList<Zombies>> zombies= new ArrayList<ArrayList<Zombies>>();
-	private ArrayList<Sun> suns = new ArrayList<Sun>();
-	private ArrayList<Sunflower> sunflowers = new ArrayList<Sunflower>();
+	private int timer = -1; //timer used for zombie waves
+	private ArrayList<Plants> plants= new ArrayList<Plants>(); //list containing all plants
+	private ArrayList<ArrayList<Zombies>> zombies= new ArrayList<ArrayList<Zombies>>(); //list of each row, which is a list of the zombies in that row
+	private ArrayList<Sun> suns = new ArrayList<Sun>(); //list of the falling suns
+	private ArrayList<Sunflower> sunflowers = new ArrayList<Sunflower>(); //list of the sunflowers
 	private String s;
-	private boolean end = false;
+	private boolean end = false; //loss
+	private boolean toRemove = false; //for removal of plants
 	private int points = 500;
-	private Lawnmower[] lawnmowers = new Lawnmower[5];
+	private Lawnmower[] lawnmowers = new Lawnmower[5]; //array of lawnmowers
 	private boolean[] areLawnmowers = new boolean[5];
 	private boolean[][] plantHere = new boolean[5][9];
-	private BufferedImage lawn, frontyard, sun, sunflower_card, peashooter_card, walnut_card, cabbage_card, mine_card, snowpea_card, bokchoi_card, urbrains;
-	/*
-	 *  added lawn as an image, used it instead of the frontyard pic, changed dimensions of panel to 950 by 550
-	 *  actual lawn starts at x = 145
-	 *  changed location of cards and points
-	 *  changed addZombies, drawZombies, moveZombies, shoot methods
-	 */
+	private BufferedImage lawn, frontyard, sun, sunflower_card, peashooter_card, walnut_card, cabbage_card, mine_card, snowpea_card, 
+	bokchoi_card,  urbrains, shovel, end_win;
 
-	/* 
-	 * TO DO:
-	 * make it so that you can't put a plant down if there is one already there
-	 * the shooting zombies/health decrements are weird
-	 * sizes
-	 * make it so that if the zombie in front is eating, it stops
-	 */
 	public Lawn() {
 		{
 			try {
-				lawn = ImageIO.read(new File("lawn.png"));
-				frontyard = ImageIO.read(new File("frontyard.png"));
-				sun = ImageIO.read(new File("sun.png"));
-				sunflower_card = ImageIO.read(new File("sunflower_card.png"));
-				peashooter_card = ImageIO.read(new File("peashooter_card.png"));
-				walnut_card = ImageIO.read(new File("walnut_card.png"));
-				cabbage_card = ImageIO.read(new File("cabbage_card.png"));
-				mine_card = ImageIO.read(new File("mine_card.png"));
-				snowpea_card = ImageIO.read(new File("snowpea_card.png"));
-				bokchoi_card = ImageIO.read(new File("bokchoi_card.png"));
-				urbrains = ImageIO.read(new File("urbrains.png"));
+				//lawn = ImageIO.read(new File("lawn.png"));
+				lawn = ImageIO.read((getClass().getResource("lawn.png")));
+				frontyard = ImageIO.read((getClass().getResource("frontyard.png")));
+				sun = ImageIO.read((getClass().getResource("sun.png")));
+				sunflower_card = ImageIO.read((getClass().getResource("sunflower_card.png")));
+				peashooter_card = ImageIO.read((getClass().getResource("peashooter_card.png")));
+				walnut_card = ImageIO.read((getClass().getResource("walnut_card.png")));
+				cabbage_card = ImageIO.read((getClass().getResource("cabbage_card.png")));
+				mine_card = ImageIO.read((getClass().getResource("mine_card.png")));
+				snowpea_card = ImageIO.read((getClass().getResource("snowpea_card.png")));
+				bokchoi_card = ImageIO.read((getClass().getResource("bokchoi_card.png")));
+				urbrains = ImageIO.read((getClass().getResource("urbrains.jpg")));
+				shovel = ImageIO.read((getClass().getResource("shovel.png")));
+				end_win = ImageIO.read((getClass().getResource("win.png")));
+				
+//				frontyard = ImageIO.read(new File("frontyard.png"));
+//				sun = ImageIO.read(new File("sun.png"));
+//				sunflower_card = ImageIO.read(new File("sunflower_card.png"));
+//				peashooter_card = ImageIO.read(new File("peashooter_card.png"));
+//				walnut_card = ImageIO.read(new File("walnut_card.png"));
+//				cabbage_card = ImageIO.read(new File("cabbage_card.png"));
+//				mine_card = ImageIO.read(new File("mine_card.png"));
+//				snowpea_card = ImageIO.read(new File("snowpea_card.png"));
+//				bokchoi_card = ImageIO.read(new File("bokchoi_card.png"));
+//				urbrains = ImageIO.read(new File("urbrains.jpg"));
+//				shovel = ImageIO.read(new File("shovel.png"));
+//				end_win = ImageIO.read(new File("win.png"));
 			}	
 			catch(IOException e) {
-
+				e.printStackTrace();
 			}
 		}
 
@@ -63,7 +68,7 @@ public class Lawn {
 			lawnmowers[i] = new Lawnmower(i);
 			areLawnmowers[i] = true;
 		}
-		
+
 		for(int r = 0; r < 5; r++) {
 			for(int c = 0; c < 9; c++) {
 				plantHere[r][c] = false;
@@ -72,9 +77,23 @@ public class Lawn {
 	}
 
 	public void draw(Graphics g) {
+		boolean win = true;
+		//if all the zombies have been defeated, will display win screen
+		for(int i = 0; i < 5; i++) {
+			if(zombies.get(i).size() != 0) {
+				win = false;
+			}
+		}
+		//if zombie reaches, will display lose screen
 		if(end) {
 			g.drawImage(urbrains, 0, 0, 950, 580, null);
 		}
+		else if(timer > 11 && win) {
+			if(win) {
+				g.drawImage(end_win, 0, 0, 950, 580, null);
+			}
+		}
+		//draws the the lawn, card, zombies, plants
 		else {
 			g.drawImage(lawn, 0, 0, null);
 			g.drawImage(sunflower_card, 850, 0, null);
@@ -84,9 +103,11 @@ public class Lawn {
 			g.drawImage(mine_card, 850, 240, null);
 			g.drawImage(snowpea_card, 850, 300, null);
 			g.drawImage(bokchoi_card, 850, 360, null);
+			g.drawImage(shovel, 875, 480, null);
 			for(Plants p: plants) {
 				p.draw(g);
 			}
+
 			for(ArrayList<Zombies> row: zombies) {
 				for(Zombies z: row) {
 					z.draw(g);
@@ -101,61 +122,65 @@ public class Lawn {
 			for(Lawnmower lawnmower: lawnmowers) {
 				lawnmower.draw(g);
 			}
-		
+
 			g.drawString("" + points, 880, 500-50);
 		}
 	}
 
+	//adds the plant to the lawn
 	public void add(String s, int x, int y) {
-			if(s.equals("sunflower")) {
-				if(points >= 50) {
-					sunflowers.add(new Sunflower(x, y));
-					points -= 50;
-				}
+		if(s==null) return;
+		if(s.equals("sunflower")) {
+			if(points >= 50) {
+				sunflowers.add(new Sunflower(x, y));
+				points -= 50;
 			}
-			else if(s.equals("peashooter")) {
-				if(points >= 100) {
-					plants.add(new Peashooter(x, y));
-					points -=100;
-				}
+		}
+		else if(s.equals("peashooter")) {
+			if(points >= 100) {
+				plants.add(new Peashooter(x, y));
+				points -=100;
 			}
-			else if (s.equals("walnut")) {
-				if(points >= 50) {
-					plants.add(new Walnut(x, y));
-					points -= 50;
-				}
+		}
+		else if (s.equals("walnut")) {
+			if(points >= 50) {
+				plants.add(new Walnut(x, y));
+				points -= 50;
 			}
-			else if (s.equals("cabbage")) {
-				if(points >= 100) {
-					plants.add(new Cabbage(x, y));
-					points -=100;
-				}
+		}
+		else if (s.equals("cabbage")) {
+			if(points >= 100) {
+				plants.add(new Cabbage(x, y));
+				points -=100;
 			}
-			else if(s.equals("mine")) {
-				if(points >= 25) {
-					plants.add(new Mine(x, y));
-					points -=25;
-				}
+		}
+		else if(s.equals("mine")) {
+			if(points >= 25) {
+				plants.add(new Mine(x, y));
+				points -=25;
 			}
-			else if(s.equals("snowpea")) {
-				if(points >= 175) {
-					plants.add(new SnowPea(x, y));
-					points -=175;
-				}
+		}
+		else if(s.equals("snowpea")) {
+			if(points >= 175) {
+				plants.add(new SnowPea(x, y));
+				points -=175;
 			}
-			else if(s.equals("bokchoi")) {
-				if(points >= 150) {
-					plants.add(new Bokchoi(x, y));
-					points -=150;
-				}
+		}
+		else if(s.equals("bokchoi")) {
+			if(points >= 150) {
+				plants.add(new Bokchoi(x, y));
+				points -=150;
 			}
+		}
 	} 
 
+	//calls add method, then sets string back to null 
 	public void addStuff() {
 		add(s, this.x, this.y);
 		s = "";
 	}
 
+	//sets appropriate location to add plant, and collects the sun if the sun was clicked
 	public void justClicked(int x, int y) {
 		int a = x-150;
 		int b = y-80;
@@ -169,6 +194,39 @@ public class Lawn {
 		}
 	}
 
+	//sets boolean so that next click will remove the plant
+	public void setRemove() {
+		if(toRemove) {
+			toRemove = false;
+		}
+		else {
+			toRemove = true;
+		}
+	}
+	
+	//returns toRemove
+	public boolean toRemove() {
+		return toRemove;
+	}
+
+	//removes the clicked plant
+	public void removeStuff() {
+		for(int i = 0; i < sunflowers.size(); i++) {
+			if(sunflowers.get(i).getX() == x && sunflowers.get(i).getY() == y) {
+				sunflowers.remove(i);
+				break;
+			}
+		}
+
+		for(int i = 0; i < plants.size(); i++) {
+			if(plants.get(i).getX() == x && plants.get(i).getY() == y) {
+				plants.remove(i);
+				break;
+			}
+		}
+	}
+
+	//sets string to appropriate plant name
 	public void card(int y) {
 		if(y >= 0 && y <= 60) {
 			s = "sunflower";
@@ -192,24 +250,24 @@ public class Lawn {
 			s = "bokchoi";
 		}
 		else {
-			s = "";
+			s = " ";
 		}
 	}
 
+	//adds zombies in waves 
 	public void addZombie() {
-		//		}
 		timer++;
 		if(timer < 5) {
 			Zombies z = new Zombies();
 			(zombies.get(z.getRow())).add(z);
 		}
-		else if(timer == 9) {
+		else if(timer == 7) {
 			for(int i = 0; i < 5; i++) {
 				(zombies.get(i)).add(new Zombies(i));
 			}
 		}
 
-		else if(timer < 11) {
+		else if(timer == 10) {
 			Zombies z = new Zombies();
 			(zombies.get(z.getRow())).add(z);
 		}
@@ -223,6 +281,7 @@ public class Lawn {
 
 	}
 
+	//moves the plants 
 	public void movePlants() {
 		for(Plants p: plants) {
 			p.move();
@@ -232,37 +291,58 @@ public class Lawn {
 		}
 	}
 
-	public void moveZombies() {
+	//moves the zombies
+	public void moveZombies() {		
 		for(ArrayList<Zombies> row: zombies) {
-			for(Zombies z: row) {
+			for(int i = 0; i < row.size(); i++) {
 				boolean atPlant = false;
 				if(plants.size() > 0) {
-					for(Plants p: plants) {
-						if(z.checkIfAtPlant(p)) {
-							if (p.name().equals("mine")) {
-								row.remove(z);
-								plants.remove(p);
+					for(int j = 0; j < plants.size(); j++) {
+						if(row.get(i).atMine(plants.get(j))) {
+							row.remove(i);
+							plants.remove(j);
+							break;
+						}
+						else {
+							if(row.get(i).checkIfAtPlant(plants.get(j))) {
+								atPlant = true;
+								plants.get(j).decreaseHealth(5);
+								if(plants.get(j).getHealth() <= 0) {
+									plants.remove(j);
+									break;
+								}
 							}
-							atPlant = true;
-							p.decreaseHealth(5);
-							if(p.getHealth() <= 0) {
-								plants.remove(p);
-								break;
+							if(sunflowers.size() > 0) {
+								for(int s = 0; s < sunflowers.size(); s++) {
+									if(row.get(i).checkIfAtSunflower(sunflowers.get(s))) {
+										atPlant = true;
+										sunflowers.get(s).decreaseHealth(5);
+										if(sunflowers.get(s).getHealth() <= 0) {
+											sunflowers.remove(s);
+											break;
+										}
+									}
+								}
 							}
 						}
 					}
 				}
-				if(!atPlant) {
-					z.move();
+				if(row.size() > 0) {
+					if(!atPlant)  {
+						row.get(i).move();
+					}
 				}
 			}
 		}
+		
 	}
 
+	//drops the sun from the sky
 	public void dropSun() {
 		suns.add(new Sun());
 	}
 
+	//moves the suns that are dropped
 	public void moveSuns() {
 		for(Sun s: suns) {
 			if(s.getY() <= 500) {
@@ -276,6 +356,7 @@ public class Lawn {
 		}
 	}
 
+	//sunflowers produce suns
 	public void makeSunsFromSunflowers() {
 		for(Sunflower sunflower:sunflowers) {
 			sunflower.addTime();
@@ -287,45 +368,58 @@ public class Lawn {
 		}
 	}
 
+	//plants shoot
 	public void shoot() {
 		for(Plants plant: plants) {
 			if((zombies.get(plant.getRow())).size() > 0) {
+				plant.zombies = true;
 				plant.shoot();
-				for(int i = 0; i < 5; i++) {
-					for(int j = 0; j < zombies.get(i).size(); j++) {
-						if(plant.isProjMotion()) {
-							plant.zombCoord(zombies.get(i).get(j).getX(), zombies.get(i).get(j).getY());
-							plant.shoot();
+				if(plant.isProjMotion()) {
+					for(int z = 0; z < zombies.get(plant.getRow()).size(); z++) {
+						plant.zombCoord(zombies.get(plant.getRow()).get(z).getX(), zombies.get(plant.getRow()).get(z).getY());
+						if(plant.projectileAtZombie(zombies.get(plant.getRow()).get(z))) {
+							zombies.get(plant.getRow()).get(z).decreaseHealth(5);
 						}
-						if(plant.projectileAtZombie(zombies.get(i).get(j))) {
-							zombies.get(i).get(j).decreaseHealth(5);
-							if(plant.isProjectile()) {
-								if(plant.getProjectile().cold()) {
-									zombies.get(i).get(j).slow();
-								}
-							}
-							if(zombies.get(i).get(j).getHealth() <= 0) {
-								zombies.get(i).remove(zombies.get(i).get(j));
-							}
+						if(zombies.get(plant.getRow()).get(z).getHealth() <= 0) {
+							zombies.get(plant.getRow()).remove(zombies.get(plant.getRow()).get(z));
 						}
 					}
 				}
-				for(ArrayList<Zombies> row: zombies) {
-					for(Zombies z : row){
-						if(plant.projectileAtZombie(z)){
-							plant.getProjectile().stop();
+				else if(!plant.isProjMotion()){
+					for(int i = 0; i < 5; i++) {
+						for(int j = 0; j < zombies.get(i).size(); j++) {
+							if(plant.projectileAtZombie(zombies.get(i).get(j))) {
+								zombies.get(i).get(j).decreaseHealth(5);
+								if(plant.isProjectile()) {
+									if(plant.getProjectile().cold()) {
+										zombies.get(i).get(j).slow();
+									}
+								}
+								if(zombies.get(i).get(j).getHealth() <= 0) {
+									zombies.get(i).remove(zombies.get(i).get(j));
+								}
+							}
+						}
+					}
+					for(ArrayList<Zombies> row: zombies) {
+						for(Zombies z : row){
+							if(plant.projectileAtZombie(z)){
+								plant.getProjectile().stop();
+							}
 						}
 					}
 				}
 			}
 			else {
+				plant.zombies = false;
 				if(plant.isProjectile()) {
 					plant.getProjectile().stop();
 				}
 			}
 		}
 	}
-	
+
+	//checks if a zombie has reached a lawnmower, or the house
 	public void checkLawnmowers() {
 		for(ArrayList<Zombies> row: zombies) {
 			for(int i = 0; i < row.size(); i++) {
@@ -341,10 +435,11 @@ public class Lawn {
 						end = true;
 					}
 				}
- 			}
+			}
 		}
 	}
-	
+
+	//moves the lawnmower once a zombie has reached it
 	public void moveLawnmowers() {
 		for(int i = 0; i < 5; i++) {
 			if(lawnmowers[i].toGo()) {
@@ -358,26 +453,29 @@ public class Lawn {
 			}
 		}
 	}
-	
-	public void potato() {
-		for (Plants p: plants) {
-			if (p.name().equals("mine")) {
-				p.time++;
-			}
-		}
-		
-	}
-	
+
+	//sets the plants to shoot position
 	public void plantsShoot() {
 		for (Plants p: plants)
-			if (p.name().equals("peashooter"))
+			if (p.name().equals("peashooter") || p.name().equals("bokchoi")) {
 				p.setShootPosition();
+			}
 	}
-	
+
+	//sets the plants to rest position
 	public void plantsMove() {
 		for (Plants p: plants) {
-			if (p.name().equals("peashooter")) {
+			if (p.name().equals("peashooter") || p.name().equals("bokchoi")) {
 				p.setRestPosition();
+			}
+		}
+	}
+	
+	//timer for the mine 
+	public void potato() {
+		for(Plants p: plants) {
+			if(p.name().equals("mine")) {
+				p.time++;
 			}
 		}
 	}

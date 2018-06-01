@@ -8,48 +8,46 @@ import javax.imageio.ImageIO;
 
 public class Peashooter extends Plants{
 
-	private static int damage = 20;
-	//	private static int X_LEN  = 80;
-	//	private static int Y_WIDTH = 100;
-	private int xCol, yRow;
+	private boolean toLeft = true;
 	private Pea p;
-	private BufferedImage left, right, img1, img2;
+	private BufferedImage img, left, right, img1, img2;
 	{
 		try 
 		{
-			left = ImageIO.read(new File("peashooter1.png"));
-			right = ImageIO.read(new File("peashooter2.png"));
-			img1 = ImageIO.read(new File("peashot1.png"));
-			img2 = ImageIO.read(new File("peashot2.png"));
+//			left = ImageIO.read(new File("peashooter1.png"));
+//			right = ImageIO.read(new File("peashooter2.png"));
+//			img1 = ImageIO.read(new File("peashot1.png"));
+//			img2 = ImageIO.read(new File("peashot2.png"));
+			left = ImageIO.read((getClass().getResource("peashooter1.png")));
+			right = ImageIO.read((getClass().getResource("peashooter2.png")));
+			img1 = ImageIO.read((getClass().getResource("peashot1.png")));
+			img2 = ImageIO.read((getClass().getResource("peashot2.png")));
 		}
-
 		catch(IOException e) {
-
+			e.printStackTrace();
 		}
 	}
 
 	public Peashooter(int x, int y) {
-		//		super(x, y);
-		//img = left;
-		xCol = x;
-		yRow = y;
-		health = 30;
-		p = new Pea(xCol+80, yRow+20, 0);
+		setX(x);
+		setY(y);
+		setHealth(30);
+		p = new Pea(getX()+80, getY()+20, 0);
 	}
 
 	public void draw(Graphics g) {
-		if (health>0) {
-			if (zombies==true ) {
+		if (getHealth()>0) {
+			if (zombies==true) {
 				if (shoot==true)
-					g.drawImage(img1, xCol, yRow, null);
+					g.drawImage(img1, getX(), getY(), null);
 				if (shoot==false)
-					g.drawImage(img2, xCol, yRow, null);
+					g.drawImage(img2, getX(), getY(), null);
 			}
 			else {
 				if (left_==true)
-					g.drawImage(left, xCol, yRow, null);
+					g.drawImage(left, getX(), getY(), null);
 				if (left_==false)
-					g.drawImage(right, xCol, yRow, null);
+					g.drawImage(right, getX(), getY(), null);
 			}
 			if(p.newPea()) {
 				newPea();
@@ -58,43 +56,45 @@ public class Peashooter extends Plants{
 		}
 	}
 
-	public int getRow() {
-		return (int)((yRow-80)/90);
+	//moves the peashooter
+	public void move() {
+		if(toLeft) {
+			img = left;
+			toLeft = false;
+		}
+		else {
+			img = right;
+			toLeft = true;
+		}
 	}
 
+	//returns name
 	public String name() {
 		return "peashooter";
 	}
 
+	//creates new pea
 	public void newPea() {
-		p = new Pea(xCol+80, yRow+20, 0);
+		p = new Pea(getX()+80, getY()+20, 0);
 	}
 
+	//returns if the projectile is at the zombie
 	public boolean projectileAtZombie(Zombies z) {
 		return p.atZombie(z);
 	}
 
-	public int getX() {
-		return xCol;
-	}
-
-	public int getY() {
-		return yRow;
-	}
-
+	//shoots the pea
 	public void shoot() {	
 		p.changeX();	
 	}
 
-	@Override
+	//returns the pea
 	public Projectile getProjectile() {
-		// TODO Auto-generated method stub
 		return p;
 	}
 	
-	@Override
+	//returns true because there is a projectile
 	public boolean isProjectile() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 }

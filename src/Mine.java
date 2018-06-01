@@ -7,58 +7,59 @@ import javax.imageio.ImageIO;
 
 public class Mine extends Plants{
 	
-	private int xCol, yRow;
-	//private int time = 0;
 	private BufferedImage img, top;
 	{
 		try 
 		{
-			img = ImageIO.read(new File("mine.png"));
-			top = ImageIO.read(new File("minetop.png"));
+//			img = ImageIO.read(new File("mine.png"));
+//			top = ImageIO.read(new File("minetop.png"));
+			img = ImageIO.read((getClass().getResource("mine.png")));
+			top = ImageIO.read((getClass().getResource("minetop.png")));
 		}
-
 		catch(IOException e) {
-
+			e.printStackTrace();
 		}
 	}
 	
 	public Mine(int x, int y) {
-		xCol = x;
-		yRow = y;
-		health = 20;
+		setX(x);
+		setY(y);
+		setHealth(20);
 	}
 
 	public void draw(Graphics g) {
-		if (time < 10)
-			g.drawImage(top, xCol, yRow, null);
-		else
-			g.drawImage(img, xCol, yRow, null);
-		
-	}
-
-	
-	public void decreaseHealth(int h) {
-		health -= h;
+		if (time < 10) {
+			g.drawImage(top, getX(), getY(), null);
+		}
+		else {
+			g.drawImage(img, getX(), getY(), null);
+		}
 	}
 	
-	public int getY() {
-		return yRow;
-	}
-	public int getX() {
-		return xCol;
-	}
-	
-	public int getHealth() {
-		return health;
-	}
-
-	@Override
-	public Projectile getProjectile() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
+	//returns plant name
 	public String name() {
 		return "mine";
+	}
+
+	//returns the projectile
+	public Projectile getProjectile() {
+		return null;
+	}
+
+	//returns false because a mine has no projectile
+	public boolean isProjectile() {
+		return false;
+	}
+		
+	//returns true when the mine is ready to explode
+	public boolean explode() {
+		if(time < 10) {
+			return false;
+		}
+		return true;
+	}
+
+	public void move() {
+		
 	}
 }

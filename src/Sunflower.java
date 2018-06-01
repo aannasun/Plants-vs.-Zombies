@@ -15,13 +15,15 @@ public class Sunflower{
 	{
 		try 
 		{
-			img = ImageIO.read(new File("sunflower.png"));
-			left = ImageIO.read(new File("sunflower_left.png"));
-			right = ImageIO.read(new File("sunflower_right.png"));
+//			img = ImageIO.read(new File("sunflower.png"));
+//			left = ImageIO.read(new File("sunflower_left.png"));
+//			right = ImageIO.read(new File("sunflower_right.png"));
+			img = ImageIO.read((getClass().getResource("sunflower.png")));
+			left = ImageIO.read((getClass().getResource("sunflower_left.png")));
+			right = ImageIO.read((getClass().getResource("sunflower_right.png")));
 		}
-
 		catch(IOException e) {
-
+			e.printStackTrace();
 		}
 	}
 	
@@ -34,13 +36,9 @@ public class Sunflower{
 
 	public void draw(Graphics g) {
 		g.drawImage(img, xCol, yRow, null);
-//		notTimer++;
-//		if(notTimer % 20 == 0) {
-//			Sun s = new Sun(xCol + 50, yRow);
-//			s.draw(g);
-//		}
 	}
 	
+	//moves the sunflower
 	public void move() {
 		if(toLeft) {
 			img = left;
@@ -52,19 +50,43 @@ public class Sunflower{
 		}
 	}
 	
+	//returns x
+	public int getX() {
+		return xCol;
+	}
+	
+	//returns y
+	public int getY() {
+		return yRow;
+	}
+	
+	//returns a new sun (generates sun)
 	public Sun newSun() {
 		return new Sun(xCol + 50, yRow);
 	}
 	
+	//increments notTimer, which is for when a sun is produced
 	public void addTime() {
 		notTimer++;
 	}
 	
+	//returns notTimer
 	public int getTime() {
 		return notTimer;
 	}
 	
+	//returns name
 	public String name() {
 		return "sunflower";
+	}
+	
+	//decreases health
+	public void decreaseHealth(int i) {
+		health -= i;
+	}
+	
+	//returns health
+	public int getHealth() {
+		return health;
 	}
 }
